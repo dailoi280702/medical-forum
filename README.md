@@ -1,27 +1,48 @@
-# Next.js + Tailwind CSS Example
+# Medical Forum
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+## Acknowledgement:
 
-## Deploy your own
+- [react](https://reactjs.org/)
+- [nextjs](https://nextjs.org/)
+- [tailwindcss](https://tailwindcss.com/)
+- [firebase v9](https://firebase.google.com/)
+- [recoil](https://recoiljs.org/)
+- [framer motion](https://www.framer.com/motion/)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## For development:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+- Clone this project.
+- Run command in project root to install dependencies:
 
-## How to use
+```
+# for npm user:
+npm i
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
+# for yarn user:
+yarn
 ```
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+- To run:
+
+```
+# for npm user:
+npm run dev
+
+# for yarn user:
+yarn dev
 ```
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+- Install [Eslint](https://eslint.org/) and [Prettier](https://prettier.io/) (_if you use vs code, install extensions instead_)
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## To-do:
+
+- [x] create header
+- [x] add toggle light/dark theme button
+- [ ] authentication
+- [ ] create post
+- [ ] display posts
+- [ ] add comment
+- [ ] display comments
+- [ ] save posts
+- [ ] mark a comment as answer (author only)
+- [ ] ...
