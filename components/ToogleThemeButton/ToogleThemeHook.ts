@@ -19,11 +19,12 @@ const ToggleThemeHook = () => {
 
   const getTheme = () => {
     const t = localStorage.getItem(theme);
-    if (!t) return light;
-
-    if (t === dark) return dark;
-
-    return light;
+    if (!t) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+        return dark;
+      return light;
+    }
+    return t;
   };
 
   const enableDarkTheme = () => {

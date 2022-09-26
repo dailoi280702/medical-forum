@@ -16,7 +16,7 @@ const Header = () => {
   const { dark, toggleTheme } = useToggleThemeHook();
 
   return (
-    <nav className='w-full min-w-min z-20 fixed bg-white text-neutral-900 shadow-md p-4 md:shadow-sm transition-all dark:text-neutral-100 dark:bg-neutral-800'>
+    <nav className='w-full min-w-min z-20 fixed bg-white text-neutral-900  p-4 shadow-sm transition-all dark:shadow-md dark:text-neutral-100 dark:bg-neutral-800'>
       <div className='flex flex-col items-start h-full max-w-6xl mx-auto text-md md:flex md:items-center md:flex-row md:space-x-8'>
         <div className='flex justify-between items-center w-full md:w-fit'>
           <h1 className='text-3xl text-blue-500 font-bold truncate drop-shadow-lg shadow-black dark:text-blue-400'>
