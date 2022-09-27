@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />
-      <div className='h h-screen bg-gray-50 text-neutral-900 overflow-y-scroll dark:bg-neutral-800 dark:text-neutral-100'>
+      <div className='h-screen bg-gray-50 text-neutral-900 overflow-y-scroll dark:bg-neutral-800 dark:text-neutral-100'>
         <h1 className='text-3xl pt-20'>Hello</h1>
       </div>
     </div>
