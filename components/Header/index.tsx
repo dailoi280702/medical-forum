@@ -10,10 +10,12 @@ import useToggleThemeHook from '../ToogleThemeButton/ToogleThemeHook';
 import { useRecoilState } from 'recoil';
 import { headerState } from '../../atoms/HeaderAtom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 
 const Header = () => {
   const [open, setOpen] = useRecoilState(headerState);
   const { dark, toggleTheme } = useToggleThemeHook();
+  const { data: session } = useSession();
 
   return (
     <nav className='sticky top-0 w-full min-w-min z-20  bg-white text-neutral-900  p-4 shadow-sm transition-all dark:shadow-md dark:text-neutral-100 dark:bg-neutral-800'>
@@ -72,18 +74,22 @@ const Header = () => {
         <div className='hidden md:inline-flex'>
           <ThemeToggleButton dark={dark} toggleTheme={toggleTheme} />
         </div>
-        <div className='group flex items-center space-x-4'>
-          <div className='rounded-full w-12 h-12 overflow-hidden hidden md:inline-flex'>
-            <img
-              className='overflow-hidden object-contain'
-              src='https://pbs.twimg.com/media/FDdpjdGXEAA98K5?format=jpg&name=900x900'
-              alt=''
-            />
+        {session ? (
+          <div className='group flex items-center space-x-4'>
+            <div className='rounded-full w-12 h-12 overflow-hidden hidden md:inline-flex'>
+              <img
+                className='overflow-hidden object-contain'
+                src='https://pbs.twimg.com/media/FDdpjdGXEAA98K5?format=jpg&name=900x900'
+                alt=''
+              />
+            </div>
+            <p className='hidden group-hover:inline-flex header-nav-item hover:text-red-600 dark:hover:text-red-400'>
+              Sign Out
+            </p>
           </div>
-          <p className='hidden group-hover:inline-flex header-nav-item hover:text-red-600 dark:hover:text-red-400'>
-            Sign Out
-          </p>
-        </div>
+        ) : (
+          <p>Sign In</p>
+        )}
       </div>
     </nav>
   );
