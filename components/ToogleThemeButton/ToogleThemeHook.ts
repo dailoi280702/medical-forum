@@ -28,14 +28,14 @@ const ToggleThemeHook = () => {
   };
 
   const enableDarkTheme = () => {
-    const root = document.getElementById('root');
+    const root = document.documentElement;
     root?.classList.add(dark);
     localStorage.setItem(theme, dark);
     setCurrentTheme(dark);
   };
 
   const disableDarkTheme = () => {
-    const root = document.getElementById('root');
+    const root = document.documentElement;
     root?.classList.remove(dark);
     localStorage.setItem(theme, light);
     setCurrentTheme(light);

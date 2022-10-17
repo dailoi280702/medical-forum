@@ -7,9 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <SessionProvider>
-        <div id='root'>
-          <Component {...pageProps} />
-        </div>
+        <Component {...pageProps} />
       </SessionProvider>
     </RecoilRoot>
   );
