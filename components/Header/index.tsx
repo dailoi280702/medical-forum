@@ -10,7 +10,7 @@ import useToggleThemeHook from '../ToogleThemeButton/ToogleThemeHook';
 import { useRecoilState } from 'recoil';
 import { headerState } from '../../atoms/HeaderAtom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSession } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 const Header = () => {
   const [open, setOpen] = useRecoilState(headerState);
@@ -88,7 +88,12 @@ const Header = () => {
             </p>
           </div>
         ) : (
-          <p>Sign In</p>
+          <motion.button
+            className='hover:text-green-600 dark:hover:text-green-400'
+            onClick={() => signIn()}
+          >
+            Sign In
+          </motion.button>
         )}
       </div>
     </nav>

@@ -1,6 +1,6 @@
 import { getProviders, signIn as nextSignIn } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next';
-import Header from '../../components/Header';
+import Header from '@/components/Header';
 
 const signIn = ({
   providers,
