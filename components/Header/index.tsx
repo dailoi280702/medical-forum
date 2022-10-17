@@ -11,11 +11,13 @@ import { useRecoilState } from 'recoil';
 import { headerState } from '../../atoms/HeaderAtom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const Header = () => {
   const [open, setOpen] = useRecoilState(headerState);
   const { dark, toggleTheme } = useToggleThemeHook();
   const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <nav className='sticky top-0 w-full min-w-min z-20  bg-white text-neutral-900  p-4 shadow-sm transition-all dark:shadow-md dark:text-neutral-100 dark:bg-neutral-800'>
@@ -42,7 +44,7 @@ const Header = () => {
               !open ? 'hidden' : ''
             }`}
           >
-            <div className='header-nav-item'>
+            <div className='header-nav-item' onClick={() => router.push('/')}>
               <div>
                 <HomeIcon className='header-nav-icon' />
               </div>
