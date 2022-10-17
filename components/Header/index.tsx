@@ -43,7 +43,9 @@ const Header = () => {
             }`}
           >
             <div className='header-nav-item'>
-              <HomeIcon className='header-nav-icon' />
+              <div>
+                <HomeIcon className='header-nav-icon' />
+              </div>
               <h3>Home</h3>
             </div>
             <div className='header-nav-item'>
@@ -56,7 +58,9 @@ const Header = () => {
             </div>
             <div className='header-nav-item md:hidden hover:text-red-600 dark:hover:text-red-400'>
               <ArrowLeftOnRectangleIcon className='header-nav-icon' />
-              <h3 className='flex-1'>Sign Out</h3>
+              <button onClick={() => signOut()}>
+                <h3 className='flex-1'>Sign Out</h3>
+              </button>
             </div>
             <div className='flex items-center pt-5 border border-b-0 border-x-0 border-t-neutral-200 dark:border-t-neutral-700 md:hidden'>
               <div className='rounded-full w-10 h-10 overflow-hidden mr-4'>
@@ -83,13 +87,20 @@ const Header = () => {
                 alt=''
               />
             </div>
-            <p className='hidden group-hover:inline-flex header-nav-item hover:text-red-600 dark:hover:text-red-400'>
+            <button
+              onClick={() => signOut()}
+              className='hidden group-hover:inline-flex header-nav-item hover:text-red-600 dark:hover:text-red-400'
+            >
               Sign Out
-            </p>
+            </button>
           </div>
         ) : (
           <motion.button
             className='hover:text-green-600 dark:hover:text-green-400'
+            whileHover={{
+              scale: 1.05,
+            }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => signIn()}
           >
             Sign In
