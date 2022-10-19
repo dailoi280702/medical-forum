@@ -4,6 +4,7 @@ import {
   WindowIcon,
   BookmarkIcon,
   ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 import ThemeToggleButton from '../ToogleThemeButton';
 import useToggleThemeHook from '../ToogleThemeButton/ToogleThemeHook';
@@ -50,30 +51,41 @@ const Header = () => {
               </div>
               <h3>Home</h3>
             </div>
-            <div className='header-nav-item'>
-              <WindowIcon className='header-nav-icon' />
-              <h3>Your Posts</h3>
-            </div>
-            <div className='header-nav-item'>
-              <BookmarkIcon className='header-nav-icon' />
-              <h3 className='flex-1'>Saved Posts</h3>
-            </div>
-            <div className='header-nav-item md:hidden hover:text-red-600 dark:hover:text-red-400'>
-              <ArrowLeftOnRectangleIcon className='header-nav-icon' />
-              <button onClick={() => signOut()}>
-                <h3 className='flex-1'>Sign Out</h3>
-              </button>
-            </div>
-            <div className='flex items-center pt-5 border border-b-0 border-x-0 border-t-neutral-200 dark:border-t-neutral-700 md:hidden'>
-              <div className='rounded-full w-10 h-10 overflow-hidden mr-4'>
-                <img
-                  className='overflow-hidden object-contain'
-                  src='https://pbs.twimg.com/media/FDdpjdGXEAA98K5?format=jpg&name=900x900'
-                  alt=''
-                />
+            {session ? (
+              <>
+                <div className='header-nav-item'>
+                  <WindowIcon className='header-nav-icon' />
+                  <h3>Your Posts</h3>
+                </div>
+                <div className='header-nav-item'>
+                  <BookmarkIcon className='header-nav-icon' />
+                  <h3 className='flex-1'>Saved Posts</h3>
+                </div>
+                <div className='header-nav-item md:hidden hover:text-red-600 dark:hover:text-red-400'>
+                  <ArrowRightOnRectangleIcon className='header-nav-icon' />
+                  <button onClick={() => signOut()}>
+                    <h3 className='flex-1'>Sign Out</h3>
+                  </button>
+                </div>
+                <div className='flex items-center pt-5 border border-b-0 border-x-0 border-t-neutral-200 dark:border-t-neutral-700 md:hidden'>
+                  <div className='rounded-full w-10 h-10 overflow-hidden mr-4'>
+                    <img
+                      className='overflow-hidden object-contain'
+                      src='https://pbs.twimg.com/media/FDdpjdGXEAA98K5?format=jpg&name=900x900'
+                      alt=''
+                    />
+                  </div>
+                  <p className='text-sm'>Captain Taimo</p>
+                </div>
+              </>
+            ) : (
+              <div className='header-nav-item md:hidden hover:text-green-600 dark:hover:text-green-400'>
+                <ArrowLeftOnRectangleIcon className='header-nav-icon' />
+                <button onClick={() => signIn()}>
+                  <h3 className='flex-1'>Sign In</h3>
+                </button>
               </div>
-              <p className='text-sm'>Captain Taimo</p>
-            </div>
+            )}
           </motion.div>
         </AnimatePresence>
         <span className='flex-1' />
@@ -98,7 +110,7 @@ const Header = () => {
           </div>
         ) : (
           <motion.button
-            className='hover:text-green-600 dark:hover:text-green-400'
+            className='hidden md:inline-flex hover:text-green-600 dark:hover:text-green-400'
             whileHover={{
               scale: 1.05,
             }}
