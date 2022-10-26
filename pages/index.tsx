@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Header from '../components/Header';
 import PageWrapper from '@/components/PageWrapper';
+import CreatePostField from '@/components/CreatePostField';
 
 const Home: NextPage = () => {
   return (
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
       </div>
       <PageWrapper>
         <>
+          <CreatePostField />
           <h1 className='text-3xl pt-20'>Hello</h1>
           <h1 className='text-2xl pt-8'>
             Hello Lorem ipsum dolor sit amet, officia excepteur ex fugiat
