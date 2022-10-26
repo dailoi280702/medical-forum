@@ -12,9 +12,6 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />
-      <div className=''>
-        <h1 className='text-3xl pt-20'>Hello</h1>
-      </div>
       <PageWrapper>
         <>
           <CreatePostField />
