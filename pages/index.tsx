@@ -16,6 +16,7 @@ const Home: NextPage = () => {
         <>
           <CreatePostField />
           <h1 className='text-3xl pt-20'>Hello</h1>
+          <h1 className='text-3xl pt-20'>Hello</h1>
           <h1 className='text-2xl pt-8'>
             Hello Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
