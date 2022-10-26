@@ -22,7 +22,7 @@ npm i
 yarn
 ```
 
-- Go to [Firebase console](https://console.firebase.google.com), add a project and get the bellow information, then put them in .env.local file
+- Go to [Firebase console](https://console.firebase.google.com), add a project and get the bellow information, then put them in .env.local file:
 
 ```
 NEXT_PUBLIC_FIREBASE_API_KEY=
@@ -45,8 +45,8 @@ npm run dev
 yarn dev
 ```
 
-- Install [Eslint](https://eslint.org/) and [Prettier](https://prettier.io/) (_if you use vs code, install extensions instead_)
-- For contributing, use [conventional commits](https://conventionalcommits.org)
+- Install [Eslint](https://eslint.org/) and [Prettier](https://prettier.io/) (_if you use vs code, install extensions instead_).
+- For contributing, use [conventional commits](https://conventionalcommits.org).
 
 ## To-do:
 
