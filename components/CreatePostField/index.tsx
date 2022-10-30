@@ -1,33 +1,24 @@
 import { useState, useRef, useEffect, ChangeEvent } from 'react';
+import TextEditor from '../TextEditor';
+import { useSession, signIn } from 'next-auth/react';
 
 const CreatePostField = () => {
-  const [content, setContent] = useState('');
-  const [width, setWidth] = useState(0);
-  const span = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (span) {
-      setWidth(span.current!.offsetWidth);
-    }
-  }, [content]);
-
-  const changeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
-    setContent(evt.target.value);
-  };
-
+  const { data: session } = useSession();
   return (
     <>
-      <div>this is an input field</div>
-      <div className='bg-blue-900 text-blue-100'>
-        <input
-          autoFocus
-          className='text-2xl bg-white-200'
-          style={{ width }}
-          type='text'
-          onChange={changeHandler}
-        />
-      </div>
-      <span className='hidden' ref={span}></span>
+      {session ? (
+        <TextEditor />
+      ) : (
+        <p className='w-full text-center text-xl'>
+          <button
+            className='font-semibold opacity-80 hover:opacity-100 hover:underline hover:scale-105 text-blue-600 dark:text-blue-400 transition-transform'
+            onClick={() => signIn()}
+          >
+            Sign In
+          </button>{' '}
+          to post a question
+        </p>
+      )}
     </>
   );
 };

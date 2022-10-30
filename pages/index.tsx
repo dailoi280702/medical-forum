@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import PageWrapper from '@/components/PageWrapper';
 import CreatePostField from '@/components/CreatePostField';
+import { useEffect } from 'react';
 
 const Home: NextPage = () => {
   return (
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
       <PageWrapper>
         <>
           <CreatePostField />
+          <h1 className=''>Hello</h1>
           <h1 className='text-3xl pt-20'>Hello</h1>
           <h1 className='text-2xl pt-8'>
             Hello Lorem ipsum dolor sit amet, officia excepteur ex fugiat
