@@ -18,13 +18,15 @@ const ToggleThemeHook = () => {
   }, []);
 
   const getTheme = () => {
-    const t = localStorage.getItem(theme);
-    if (!t) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches)
-        return dark;
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      return dark;
+    } else {
       return light;
     }
-    return t;
   };
 
   const enableDarkTheme = () => {
