@@ -13,6 +13,7 @@ import { headerState } from '../../atoms/HeaderAtom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const Header = () => {
   const [open, setOpen] = useRecoilState(headerState);
@@ -68,14 +69,15 @@ const Header = () => {
                   </button>
                 </div>
                 <div className='flex items-center pt-5 border border-b-0 border-x-0 border-t-neutral-200 dark:border-t-neutral-700 md:hidden'>
-                  <div className='rounded-full w-10 h-10 overflow-hidden mr-4'>
-                    <img
-                      className='overflow-hidden object-contain'
-                      src='https://pbs.twimg.com/media/FDdpjdGXEAA98K5?format=jpg&name=900x900'
-                      alt=''
+                  <div className='relative rounded-full w-10 h-10 overflow-hidden mr-4'>
+                    <Image
+                      className='rounded-full object-cover overflow-hidden'
+                      src={session.user.image}
+                      alt={session.user.name}
+                      fill
                     />
                   </div>
-                  <p className='text-sm'>Captain Taimo</p>
+                  <p className='text-sm'>{session.user.name}</p>
                 </div>
               </>
             ) : (
@@ -94,11 +96,12 @@ const Header = () => {
         </div>
         {session ? (
           <div className='group flex items-center space-x-4'>
-            <div className='rounded-full w-12 h-12 overflow-hidden hidden md:inline-flex'>
-              <img
-                className='overflow-hidden object-contain'
-                src='https://pbs.twimg.com/media/FDdpjdGXEAA98K5?format=jpg&name=900x900'
-                alt=''
+            <div className='relative rounded-full w-12 h-12 hidden md:inline-flex'>
+              <Image
+                className='rounded-full object-cover overflow-hidden'
+                src={session.user.image}
+                alt={session.user.name}
+                fill
               />
             </div>
             <button
