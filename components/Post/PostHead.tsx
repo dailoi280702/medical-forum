@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 type Props = {
   authorName: string;
   authorImg: string;
-  timeStamp?: Timestamp;
+  timeStamp?: Timestamp | null;
 };
 
 const PostHead = ({ authorName, authorImg, timeStamp }: Props) => {
