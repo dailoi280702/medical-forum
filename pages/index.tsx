@@ -7,7 +7,8 @@ import PostList from 'components/PostList';
 
 const Home: NextPage = () => {
   return (
-    <div className='h-screen bg-gray-50 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100'>
+    <>
+      <div className='h-screen w-full bg-neutral-100 dark:bg-neutral-800 dark:border- top-0 z-[-1] absolute' />
       <Head>
         <title>Create Next App</title>
         <link rel='icon' href='/favicon.ico' />
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
           </div>
         </>
       </PageWrapper>
-    </div>
+    </>
   );
 };
 
