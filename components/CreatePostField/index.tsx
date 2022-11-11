@@ -27,11 +27,12 @@ const CreatePostField = () => {
             {values.createPostVisibility ? (
               <motion.div className='flex flex-col'>
                 <input
-                  className='w-full px-4 py-2 bg-transparent rounded-md border border-neutral-500 focus:outline-none placeholder:italic placeholder-neutral-700 dark:placeholder-neutral-200 dark:border-neutral-400'
+                  className='w-full px-4 py-2 bg-neutral-50 dark:bg-zinc-800 rounded-md border border-neutral-400 focus:outline-none placeholder:italic placeholder-neutral-700 dark:placeholder-neutral-200 dark:border-neutral-500'
                   type='text'
                   placeholder='Title'
                   value={values.title}
                   onChange={events.setTitle}
+                  autoFocus
                 />
                 <TextEditor
                   className='mt-4'
