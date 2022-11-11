@@ -1,16 +1,10 @@
 import { db } from '../../firebase/clientApp';
-import {
-  collection,
-  getCountFromServer,
-  onSnapshot,
-  onSnapshotsInSync,
-  Timestamp,
-} from 'firebase/firestore';
+import { collection, onSnapshot, Timestamp } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import PostHead from './PostHead';
 import PostContent from './PostContent';
 import PostTool from './PostTools';
+import { useRouter } from 'next/router';
 
 export interface DPost {
   authorId: string;
@@ -18,7 +12,7 @@ export interface DPost {
   authorImg: string;
   title: string;
   html: string;
-  timeStamp: Timestamp;
+  timeStamp: Timestamp | null;
   editDate?: Timestamp;
   numberOfComment?: number;
   numberOfWaitings?: number;
@@ -32,6 +26,7 @@ export interface DInterested {
 }
 
 const Post = ({ id, post }: { id: string; post: DPost }) => {
+  const router = useRouter();
   const [interesteds, setInteresteds] = useState<Map<string, Timestamp>>(
     new Map()
   );
@@ -49,7 +44,12 @@ const Post = ({ id, post }: { id: string; post: DPost }) => {
   );
 
   return (
-    <li className='rounded-lg border cursor-pointer border-neutral-500 dark:border-neutral-600 mb-4 p-4 bg-neutral-50 dark:bg-zinc-800/50'>
+    <div
+      className='rounded-lg border cursor-pointer border-neutral-500 dark:border-neutral-600 mb-4 p-4 bg-neutral-50 dark:bg-zinc-800/50 list-none'
+      onClick={() => {
+        router.push(`/question/${id}`);
+      }}
+    >
       {/** img, username, edited, sovled **/}
       <PostHead
         authorName={post.authorName}
@@ -74,7 +74,7 @@ const Post = ({ id, post }: { id: string; post: DPost }) => {
           }}
         />
       </div>
-    </li>
+    </div>
   );
 };
 
