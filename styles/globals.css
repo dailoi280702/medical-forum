@@ -29,11 +29,11 @@
 }
 
 .ql-toolbar {
-  @apply rounded-t-md !border-neutral-500 dark:!border-neutral-400;
+  @apply bg-neutral-50 dark:bg-neutral-800 rounded-t-md !border-neutral-400 dark:!border-neutral-500 !border-b-neutral-300 dark:!border-b-neutral-600;
 }
 
 .ql-container {
-  @apply rounded-b-md !border-neutral-500 dark:!border-neutral-400;
+  @apply bg-neutral-50 dark:bg-neutral-800 rounded-b-md !border-neutral-400 dark:!border-neutral-500 !border-t-neutral-300 dark:!border-t-neutral-600;
 }
 
 .ql-snow a {
