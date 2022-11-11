@@ -5,6 +5,7 @@ import PostHead from './PostHead';
 import PostContent from './PostContent';
 import PostTool from './PostTools';
 import { useRouter } from 'next/router';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export interface DPost {
   authorId: string;
@@ -44,37 +45,43 @@ const Post = ({ id, post }: { id: string; post: DPost }) => {
   );
 
   return (
-    <div
-      className='rounded-lg border cursor-pointer border-neutral-500 dark:border-neutral-600 mb-4 p-4 bg-neutral-50 dark:bg-zinc-800/50 list-none'
-      onClick={() => {
-        router.push(`/question/${id}`);
-      }}
-    >
-      {/** img, username, edited, sovled **/}
-      <PostHead
-        authorName={post.authorName}
-        authorImg={post.authorImg}
-        timeStamp={post.timeStamp}
-      />
-      <div className='ml-12'>
-        <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
-        <PostContent title={post.title} html={post.html} />
-        <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
-        <PostTool
-          solved={true}
-          numberOfWaitings={0}
-          numberOfComments={0}
-          saved={true}
-          interested={true}
-          savePost={() => {
-            console.log('save clicked');
-          }}
-          setInterested={() => {
-            console.log('set interested clicked');
-          }}
+    <AnimatePresence>
+      <motion.div
+        className='rounded-lg border cursor-pointer border-neutral-500 dark:border-neutral-600 mb-4 p-4 bg-neutral-50 dark:bg-zinc-800/50 list-none'
+        onClick={() => {
+          router.push(`/question/${id}`);
+        }}
+        initial={{ x: -300, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 300, opacity: 0 }}
+      >
+        {/** img, username, edited, sovled **/}
+        <PostHead
+          authorName={post.authorName}
+          authorImg={post.authorImg}
+          timeStamp={post.timeStamp}
         />
-      </div>
-    </div>
+        <div className='ml-12'>
+          <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
+          <PostContent title={post.title} html={post.html} />
+          <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
+          <PostTool
+            solved={true}
+            numberOfWaitings={0}
+            numberOfComments={0}
+            saved={true}
+            interested={true}
+            savePost={() => {
+              console.log('save clicked');
+            }}
+            setInterested={() => {
+              console.log('set interested clicked');
+            }}
+          />
+        </div>
+      </motion.div>
+    </AnimatePresence>
+
   );
 };
 
