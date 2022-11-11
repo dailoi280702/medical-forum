@@ -2,7 +2,12 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import { useSession } from 'next-auth/react';
 
 import { db } from '../../firebase/clientApp';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  getCountFromServer,
+  serverTimestamp,
+} from 'firebase/firestore';
 
 const CreatePostHook = () => {
   const { data: session } = useSession();
@@ -48,6 +53,9 @@ const CreatePostHook = () => {
         html: question,
         timeStamp: serverTimestamp(),
       });
+
+      const snapshot = await getCountFromServer(collection(db, 'question'));
+      console.log(snapshot.data().count);
 
       setTitle('');
       setQuestion('');
