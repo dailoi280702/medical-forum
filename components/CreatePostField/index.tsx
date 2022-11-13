@@ -3,6 +3,7 @@ import { useSession, signIn } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PopupModal from '../PopUpModal';
 import useCreatePost from './CreatePostHook';
+import CreatePostPlaceHolder from './CreatePostPlaceHolder';
 
 const extractContent = (html: string) => {
   return new DOMParser().parseFromString(html, 'text/html').documentElement
@@ -60,11 +61,10 @@ const CreatePostField = () => {
                 </div>
               </motion.div>
             ) : (
-              <motion.div>
-                <button onClick={() => events.setCreatePostVisibility(true)}>
-                  Show
-                </button>
-              </motion.div>
+              <CreatePostPlaceHolder
+                placeHolder='Create a question'
+                onClick={() => events.setCreatePostVisibility(true)}
+              />
             )}
           </motion.div>
         </AnimatePresence>

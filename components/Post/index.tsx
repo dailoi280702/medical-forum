@@ -81,7 +81,6 @@ const Post = ({ id, post }: { id: string; post: DPost }) => {
         </div>
       </motion.div>
     </AnimatePresence>
-
   );
 };
 
