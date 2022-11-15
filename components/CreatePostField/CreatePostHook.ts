@@ -2,12 +2,7 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import { useSession } from 'next-auth/react';
 
 import { db } from '../../firebase/clientApp';
-import {
-  addDoc,
-  collection,
-  getCountFromServer,
-  serverTimestamp,
-} from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const CreatePostHook = () => {
   const { data: session } = useSession();
@@ -48,14 +43,11 @@ const CreatePostHook = () => {
       await addDoc(collection(db, 'question'), {
         authorName: session?.user.name!,
         authorImg: session?.user.image!,
-        auhtorId: session?.user.uid!,
+        authorId: session?.user.uid!,
         title: title,
         html: question,
         timeStamp: serverTimestamp(),
       });
-
-      const snapshot = await getCountFromServer(collection(db, 'question'));
-      console.log(snapshot.data().count);
 
       setTitle('');
       setQuestion('');
