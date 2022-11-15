@@ -43,7 +43,7 @@ const CreatePostHook = () => {
       await addDoc(collection(db, 'question'), {
         authorName: session?.user.name!,
         authorImg: session?.user.image!,
-        auhtorId: session?.user.uid!,
+        authorId: session?.user.uid!,
         title: title,
         html: question,
         timeStamp: serverTimestamp(),
