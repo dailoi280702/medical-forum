@@ -24,10 +24,9 @@ const SetWaitingIconButton = ({
       ) : (
         <ClockIcon className='h-6 w-6 group-hover:scale-110 transition-all duration-200' />
       )}
-      <p className='ml-2 text-sm'>
-        {numberOfInteresteds > 1
-          ? `${numberOfInteresteds} waiting for solution`
-          : `${numberOfInteresteds} waiting for solution`}
+      <p className='ml-2 text-sm flex'>
+        {numberOfInteresteds}
+        <span className='hidden sm:block ml-1'>waiting for solution</span>
       </p>
     </button>
   );
