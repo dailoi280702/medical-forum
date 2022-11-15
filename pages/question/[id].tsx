@@ -62,7 +62,7 @@ const PostPage = () => {
 
   return (
     <>
-      <div className="h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute" />
+      <div className='h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute' />
       <Header />
       <PageWrapper>
         {loadedWithMemo && (
@@ -78,16 +78,16 @@ const PostPage = () => {
                   >
                     <Post id={id as string} post={post}>
                       {post.authorId === session?.user.uid && (
-                        <div className="ml-auto flex items-center space-x-2">
+                        <div className='ml-auto flex items-center space-x-2'>
                           <StanddardIconButton
-                            primaryColor="red"
+                            primaryColor='red'
                             disabled={post.numberOfComment == 0}
                             onClick={openModal}
                           >
                             <TrashIcon />
                           </StanddardIconButton>
                           <StanddardIconButton
-                            primaryColor="green"
+                            primaryColor='green'
                             disabled={post.numberOfComment == 0}
                             onClick={() => setEditMode(true)}
                           >
@@ -106,15 +106,15 @@ const PostPage = () => {
         )}
       </PageWrapper>
       <ConfirmModal
-        title="Confirm Deletion"
+        title='Confirm Deletion'
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={deleteQuestion}
-        confirmText="Delete"
-        cancleText="Cancle"
+        confirmText='Delete'
+        cancleText='Cancle'
       >
         <>
-          <p className="text-sm">
+          <p className='text-sm'>
             This action <strong>Can not</strong> be undo
             <br /> Are you sure to continue?
           </p>
