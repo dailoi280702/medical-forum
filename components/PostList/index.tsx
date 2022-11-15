@@ -5,57 +5,15 @@ import {
   onSnapshot,
   orderBy,
   query,
-  Timestamp,
 } from 'firebase/firestore';
 import Post, { DPost } from '../Post';
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase/clientApp';
-
-// const fakeData: PostProps[] = [
-//   {
-//     authorName: 'Joseph Zodwa',
-//     authorImg:
-//       'https://twitter.com/lolesports/status/1456758516493045773/photo/1',
-//     title: 'fake',
-//     html: '<div>aaa<div>',
-//     timeStamp: new Timestamp(1667721427, 0),
-//   },
-//   {
-//     authorName: 'Joseph Zodwa',
-//     authorImg:
-//       'https://twitter.com/lolesports/status/1456758516493045773/photo/1',
-//     title: 'fake',
-//     html: '<div>aaa<div>',
-//     timeStamp: new Timestamp(1667721427, 0),
-//   },
-//   {
-//     authorName: 'Joseph Zodwa',
-//     authorImg:
-//       'https://twitter.com/lolesports/status/1456758516493045773/photo/1',
-//     title: 'fake',
-//     html: '<div>aaa<div>',
-//     timeStamp: new Timestamp(1667721427, 0),
-//   },
-//   {
-//     authorName: 'Joseph Zodwa',
-//     authorImg:
-//       'https://twitter.com/lolesports/status/1456758516493045773/photo/1',
-//     title: 'fake',
-//     html: '<div>aaa<div>',
-//     timeStamp: new Timestamp(1667721427, 0),
-//   },
-//   {
-//     authorId: '1',
-//     authorName: 'Joseph Zodwa',
-//     authorImg:
-//       'https://twitter.com/lolesports/status/1456758516493045773/photo/1',
-//     title: 'fake',
-//     html: '<div>aaa<div>',
-//     timeStamp: new Timestamp(1667721427, 0),
-//   },
-// ];
+import { useRouter } from 'next/router';
+import PostWrapper from '../Post/PostWrapper';
 
 const PostList = () => {
+  const router = useRouter();
   const [posts, setPosts] = useState<Map<string, DPost>>(new Map([]));
 
   const getUpvote = async () => {
@@ -87,7 +45,15 @@ const PostList = () => {
     <ul>
       {posts.size > 0 &&
         Array.from(posts).map((value) => (
-          <Post key={value[0]} id={value[0]} post={value[1]} />
+          <PostWrapper
+            key={value[0]}
+            darkerBorder={true}
+            onClick={() => {
+              router.push(`/question/${value[0]}`);
+            }}
+          >
+            <Post id={value[0]} post={value[1]} />
+          </PostWrapper>
         ))}
     </ul>
   );
