@@ -1,4 +1,4 @@
-import { DPost } from '@/components/Post';
+import { DPost, PostMenu } from '@/components/Post';
 import { db } from '../../firebase/clientApp';
 import { doc, onSnapshot, deleteDoc } from 'firebase/firestore';
 // import type { GetStaticProps } from 'next';
@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import PageWrapper from '@/components/PageWrapper';
 import Post from '@/components/Post';
 import { useRouter } from 'next/router';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, createContext } from 'react';
 import PostWrapper from '@/components/Post/PostWrapper';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { StanddardIconButton } from '@/components/Button';
@@ -14,6 +14,11 @@ import { ConfirmModal } from '@/components/PopUpModal';
 import PageNotFound from '@/components/PageNotFound';
 import UpdatePost from '@/components/UpdatePost';
 import { useSession } from 'next-auth/react';
+import CreateComment from '@/components/CreateComment';
+import CommentTree from '@/components/CommentTree';
+
+type QuestionContext = DPost & { id: string };
+export const QuestionContext = createContext<QuestionContext | null>(null);
 
 const PostPage = () => {
   const router = useRouter();
@@ -62,7 +67,7 @@ const PostPage = () => {
 
   return (
     <>
-      <div className='h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute' />
+      <div className="h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute" />
       <Header />
       <PageWrapper>
         {loadedWithMemo && (
@@ -70,33 +75,36 @@ const PostPage = () => {
             {post ? (
               <PostWrapper>
                 {id && (
-                  <UpdatePost
-                    id={id as string}
-                    post={post}
-                    editMode={!editMode}
-                    setEditMode={setEditMode}
+                  <QuestionContext.Provider
+                    value={{ ...post, id: id as string }}
                   >
-                    <Post id={id as string} post={post}>
-                      {post.authorId === session?.user.uid && (
-                        <div className='ml-auto flex items-center space-x-2'>
-                          <StanddardIconButton
-                            primaryColor='red'
-                            disabled={post.numberOfComment == 0}
-                            onClick={openModal}
-                          >
-                            <TrashIcon />
-                          </StanddardIconButton>
-                          <StanddardIconButton
-                            primaryColor='green'
-                            disabled={post.numberOfComment == 0}
-                            onClick={() => setEditMode(true)}
-                          >
-                            <PencilIcon />
-                          </StanddardIconButton>
-                        </div>
-                      )}
-                    </Post>
-                  </UpdatePost>
+                    <UpdatePost
+                      id={id as string}
+                      post={post}
+                      editMode={!editMode}
+                      setEditMode={setEditMode}
+                    >
+                      <Post id={id as string} post={post}>
+                        {post.authorId === session?.user.uid && (
+                          <div className="ml-auto">
+                            <PostMenu
+                              deleteDisabled={post.numberOfComment !== 0}
+                              editDisabled={post.numberOfComment !== 0}
+                              onDelete={openModal}
+                              onEdit={() => setEditMode(true)}
+                            />
+                          </div>
+                        )}
+                      </Post>
+                    </UpdatePost>
+                    <div className="h-24" />
+                    <div className="sm:px-12">
+                      <CreateComment />
+                    </div>
+                    <div className="py-12">
+                      <CommentTree />
+                    </div>
+                  </QuestionContext.Provider>
                 )}
               </PostWrapper>
             ) : (
@@ -106,15 +114,15 @@ const PostPage = () => {
         )}
       </PageWrapper>
       <ConfirmModal
-        title='Confirm Deletion'
+        title="Confirm Deletion"
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={deleteQuestion}
-        confirmText='Delete'
-        cancleText='Cancle'
+        confirmText="Delete"
+        cancleText="Cancle"
       >
         <>
-          <p className='text-sm'>
+          <p className="text-sm">
             This action <strong>Can not</strong> be undo
             <br /> Are you sure to continue?
           </p>

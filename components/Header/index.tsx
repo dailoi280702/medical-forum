@@ -56,11 +56,11 @@ const Header = () => {
               <>
                 <div className='header-nav-item'>
                   <WindowIcon className='header-nav-icon' />
-                  <h3>Your Posts</h3>
+                  <h3>Your Quesitons</h3>
                 </div>
                 <div className='header-nav-item'>
                   <BookmarkIcon className='header-nav-icon' />
-                  <h3 className='flex-1'>Saved Posts</h3>
+                  <h3 className='flex-1'>Saved Quesitons</h3>
                 </div>
                 <div className='header-nav-item md:hidden hover:text-red-600 dark:hover:text-red-400'>
                   <ArrowRightOnRectangleIcon className='header-nav-icon' />

@@ -15,6 +15,8 @@ type Props = {
   onDone: () => any;
   onCancle: () => any;
   children: ReactNode;
+  canPerformAction?: boolean;
+  actionLable?: string;
 };
 
 const CreatePostView = (props: Props) => {
@@ -29,10 +31,12 @@ const CreatePostView = (props: Props) => {
     onDone,
     onCancle,
     children,
+    canPerformAction,
+    actionLable,
   } = props;
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence mode="wait">
       <motion.div
         key={String(postVisibility)}
         initial={{ y: 10, opacity: 0 }}
@@ -41,33 +45,35 @@ const CreatePostView = (props: Props) => {
         transition={{ duration: 0.2 }}
       >
         {postVisibility ? (
-          <motion.div className='flex flex-col'>
+          <motion.div className="flex flex-col">
             <input
-              className='w-full px-4 py-2 bg-neutral-50 dark:bg-zinc-800 rounded-md border border-neutral-400 focus:outline-none placeholder:italic placeholder-neutral-700 dark:placeholder-neutral-200 dark:border-neutral-500'
-              type='text'
+              className="w-full px-4 py-2 bg-neutral-50 dark:bg-zinc-800 rounded-md border border-neutral-400 focus:outline-none placeholder:italic placeholder-neutral-700 dark:placeholder-neutral-200 dark:border-neutral-500"
+              type="text"
               placeholder={titlePlacehoder ?? 'title'}
               value={title}
               onChange={setTitle}
               autoFocus
             />
             <TextEditor
-              className='mt-4'
+              className="mt-4"
               value={question}
               setValue={setQuestion}
               placeHolder={questionPlacehoder ?? 'Question'}
             />
-            <div className='self-end mt-4 flex items-center'>
-              <button className='red-text-button mr-4' onClick={onCancle}>
+            <div className="self-end mt-4 flex items-center">
+              <button className="red-text-button mr-4" onClick={onCancle}>
                 Cancel
               </button>
               <button
-                className='blue-outline-button'
+                className="blue-outline-button"
                 disabled={
-                  extractContent(question) === '' || title.trim() === ''
+                  !canPerformAction ||
+                  extractContent(question) === '' ||
+                  title.trim() === ''
                 }
                 onClick={onDone}
               >
-                Post
+                {actionLable ?? 'Post'}
               </button>
             </div>
           </motion.div>
