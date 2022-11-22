@@ -36,6 +36,14 @@
   @apply bg-neutral-50 dark:bg-neutral-800 rounded-b-md !border-neutral-400 dark:!border-neutral-500 !border-t-neutral-300 dark:!border-t-neutral-600;
 }
 
+.ql-transparent .ql-toolbar {
+  @apply bg-transparent rounded-t-md !border-neutral-400 dark:!border-neutral-500 !border-b-neutral-300 dark:!border-b-neutral-600;
+}
+
+.ql-transparent .ql-container {
+  @apply bg-transparent rounded-b-md !border-neutral-400 dark:!border-neutral-500 !border-t-neutral-300 dark:!border-t-neutral-600;
+}
+
 .ql-snow a {
   @apply text-blue-600 dark:text-blue-400;
 }

@@ -4,6 +4,7 @@ import { useState, useEffect, ReactNode } from 'react';
 import PostHead from './PostHead';
 import PostContent from './PostContent';
 import PostTool from './PostTools';
+import PostMenu from './PostMenu';
 
 export interface DPost {
   authorId: string;
@@ -52,7 +53,7 @@ const Post = ({
   return (
     <>
       {/** img, username, edited, sovled **/}
-      <div className='flex items-center'>
+      <div className="flex items-center">
         <PostHead
           authorName={post.authorName}
           authorImg={post.authorImg}
@@ -60,15 +61,19 @@ const Post = ({
         />
         {children}
       </div>
-      <div className='ml-12'>
-        <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
-        <PostContent title={post.title} html={post.html} />
-        <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
+      <div className="sm:ml-12">
+        <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
+        <PostContent
+          title={post.title}
+          html={post.html}
+          edited={Boolean(post.editedDate)}
+        />
+        <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
         <PostTool
           solved={Boolean(post.sovledCommentId)}
           numberOfWaitings={0}
-          numberOfComments={0}
-          saved={true}
+          numberOfComments={post.numberOfComment ?? 0}
+          saved={false}
           interested={true}
           savePost={() => {
             console.log('save clicked');
@@ -81,5 +86,7 @@ const Post = ({
     </>
   );
 };
+
+export { PostMenu };
 
 export default Post;
