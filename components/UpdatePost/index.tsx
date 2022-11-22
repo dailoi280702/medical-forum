@@ -5,6 +5,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useMemo,
   useState,
 } from 'react';
 import { CreatePostView } from '../CreatePostField';
@@ -26,8 +27,21 @@ const UpdatePost = (props: Props) => {
   const [modalVisibility, setModalVisibility] = useState(false);
   const [error, setError] = useState<any>(null);
 
+  const canPostComment = useMemo(
+    () =>
+      question.trim() !== post.html.trim() ||
+      title.trim() !== post.title.trim(),
+    [post.html, post.title, question, title]
+  );
+
   const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
+  };
+
+  const cancle = () => {
+    setEditMode(false);
+    setQuestion(post.html);
+    setTitle(post.title);
   };
 
   const updatePost = async () => {
@@ -40,7 +54,7 @@ const UpdatePost = (props: Props) => {
       await setDoc(doc(db, 'question', id as string), {
         ...post,
         title: title,
-        question: question,
+        html: question,
         editedDate: serverTimestamp(),
       });
       setEditMode(false);
@@ -60,7 +74,9 @@ const UpdatePost = (props: Props) => {
         setTitle={changeTitle}
         setQuestion={setQuestion}
         onDone={updatePost}
-        onCancle={() => setEditMode(false)}
+        onCancle={cancle}
+        canPerformAction={canPostComment}
+        actionLable='Update'
       >
         {children}
       </CreatePostView>
