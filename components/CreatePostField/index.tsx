@@ -24,6 +24,7 @@ const CreatePostField = () => {
           setTitle={events.setTitle}
           onDone={events.addPost}
           onCancle={events.cancelPost}
+          canPerformAction
         >
           <CreatePostPlaceHolder
             placeHolder='Create a question'

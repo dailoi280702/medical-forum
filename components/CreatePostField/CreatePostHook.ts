@@ -13,16 +13,6 @@ const CreatePostHook = () => {
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch('/api/hello');
-      const data = await res.json();
-      setQuestion(data.name);
-    };
-
-    fetchData();
-  }, []);
-
   const cancelPost = () => {
     setCreatePostVisibility(false);
     setQuestion('');
