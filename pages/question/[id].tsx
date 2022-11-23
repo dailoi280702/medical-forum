@@ -8,8 +8,6 @@ import Post from '@/components/Post';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useMemo, createContext } from 'react';
 import PostWrapper from '@/components/Post/PostWrapper';
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { StanddardIconButton } from '@/components/Button';
 import { ConfirmModal } from '@/components/PopUpModal';
 import PageNotFound from '@/components/PageNotFound';
 import UpdatePost from '@/components/UpdatePost';
@@ -99,7 +97,7 @@ const PostPage = () => {
                     </UpdatePost>
                     <div className="h-24" />
                     <div className="sm:px-12">
-                      <CreateComment />
+                      <CreateComment alwaysDisplay={true} />
                     </div>
                     <div className="py-12">
                       <CommentTree />
