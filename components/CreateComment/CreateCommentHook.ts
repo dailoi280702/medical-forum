@@ -13,16 +13,32 @@ import { DComment } from '.';
 import { CommentContext } from '../Comment';
 import { constSelector } from 'recoil';
 
-const CreateCommentHook = () => {
+type Props = {
+  alwaysDisplay?: boolean;
+  setVisibility?: (visibility: boolean) => any;
+};
+
+const CreateCommentHook = (
+  alwaysDisplay?: boolean,
+  setVisibility?: (visibility: boolean) => any
+) => {
   const { data: session } = useSession();
   const [comment, setComment] = useState('');
+  const [isVisibvle, setVisible] = useState(false);
   const [modalVisibility, setModalVisibility] = useState(false);
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const question = useContext(QuestionContext);
   const parentComment = useContext(CommentContext);
 
+  const setVisibleState = (value: boolean) => {
+    setVisible(value);
+  };
+
   const postComment = async () => {
+    if (!alwaysDisplay && setVisibility) {
+      setVisibility!(false);
+    }
     setLoading(true);
     try {
       if (!question || !session) {
@@ -71,8 +87,10 @@ const CreateCommentHook = () => {
     values: {
       comment,
       modalVisibility,
+      isVisibvle,
     },
     events: {
+      setVisible: setVisibleState,
       setComment,
       setModalVisibility,
       cancel,

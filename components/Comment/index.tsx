@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import CreateComment, { DComment } from '../CreateComment';
 import Image from 'next/image';
 import Moment from 'react-moment';
@@ -12,9 +12,10 @@ export const CommentContext = createContext<Comment>(null);
 type Props = {
   comment: DComment;
   id: string;
+  onReply?: () => any;
 };
 
-function Comment({ id, comment }: Props) {
+function Comment({ id, comment, onReply }: Props) {
   const question = useContext(QuestionContext);
   const { data: session } = useSession();
   const isSolution = question?.sovledCommentId === id;
@@ -50,7 +51,6 @@ function Comment({ id, comment }: Props) {
           </p>
         )}
       </div>
-
       <div className="flex ">
         <div
           className={`mx-4 w-0.5 ${
@@ -66,6 +66,7 @@ function Comment({ id, comment }: Props) {
             numberOfLikes={comment.numberOfLikes}
             isPostAuthor={isPostAuthor}
             isCommentAuthor={isCommentAuthor}
+            onComment={onReply}
           />
         </div>
       </div>

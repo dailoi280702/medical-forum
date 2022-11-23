@@ -16,23 +16,39 @@ export type DComment = {
   numberOfDislikes: number;
 };
 
-const CreateComment = () => {
+type Props = {
+  alwaysDisplay?: boolean;
+  setVisibility?: (value: boolean) => any;
+  actionButtonText?: string;
+  className?: string;
+};
+
+const CreateComment = ({
+  alwaysDisplay,
+  setVisibility,
+  actionButtonText,
+  className,
+}: Props) => {
   const { data: session } = useSession();
-  const { events, values, state } = useCreateComment();
+  const { events, values, state } = useCreateComment(
+    alwaysDisplay,
+    setVisibility
+  );
 
   return (
-    <div>
+    <div className={className}>
       {session ? (
         <CreateCommentView
           comment={values.comment}
           setComment={events.setComment}
           onCancle={events.cancel}
           onDone={events.postComment}
+          actionButtonText={actionButtonText}
         />
       ) : (
-        <p className="w-full text-center text-xl">
+        <p className='w-full text-center text-xl'>
           <button
-            className="font-semibold opacity-80 hover:opacity-100 hover:underline hover:scale-105 text-blue-600 dark:text-blue-400 transition-transform"
+            className='font-semibold opacity-80 hover:opacity-100 hover:underline hover:scale-105 text-blue-600 dark:text-blue-400 transition-transform'
             onClick={() => signIn()}
           >
             Sign In

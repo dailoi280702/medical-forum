@@ -5,20 +5,26 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 type Props = {
   comment: string;
+  actionButtonText?: string;
   setComment: Dispatch<SetStateAction<string>>;
   onCancle: () => any;
   onDone: () => any;
 };
 
-const CreateCommentView = (props: Props) => {
-  const { comment, setComment, onCancle, onDone } = props;
+const CreateCommentView = ({
+  comment,
+  actionButtonText,
+  setComment,
+  onCancle,
+  onDone,
+}: Props) => {
   const [focus, setFocus] = useState(false);
 
   return (
-    <div className="flex flex-col">
+    <div className='flex flex-col'>
       <TextEditor
-        className="ql-transparent"
-        placeHolder="Comment"
+        className='ql-transparent'
+        placeHolder='Comment'
         value={comment}
         setValue={setComment}
         onFocus={() => setFocus(true)}
@@ -27,20 +33,20 @@ const CreateCommentView = (props: Props) => {
       <AnimatePresence>
         {focus && (
           <motion.div
-            className="self-end mt-4 flex items-center"
+            className='self-end mt-4 flex items-center'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <button className="red-text-button mr-4" onClick={onCancle}>
+            <button className='red-text-button mr-4' onClick={onCancle}>
               Clear
             </button>
             <button
-              className="blue-outline-button"
+              className='blue-outline-button'
               disabled={extractContent(comment) === ''}
               onClick={onDone}
             >
-              Comment
+              {actionButtonText ?? 'Comment'}
             </button>
           </motion.div>
         )}
