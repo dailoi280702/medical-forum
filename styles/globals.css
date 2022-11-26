@@ -49,7 +49,7 @@
 }
 
 .none-preflight * {
-  @apply text-clip;
+  @apply !text-clip;
 }
 
 .none-preflight h1 {

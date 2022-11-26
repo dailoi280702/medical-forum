@@ -2,6 +2,10 @@ import { useContext, useState } from 'react';
 import Comment, { CommentContext } from '../Comment';
 import { CommentTreeContext } from '../CommentTree';
 import CreateComment, { DComment } from '../CreateComment';
+import {
+  DeleteCommentProvider,
+  ConfirmDeleteCommentModal,
+} from '../DeleteComment/';
 
 type Props = {
   comment: DComment;
@@ -17,18 +21,17 @@ const CommentNode = ({ id, comment }: Props) => {
 
   return (
     <CommentContext.Provider value={{ id: id, ...comment }}>
-      <div className='mt-8'>
+      <DeleteCommentProvider>
         <Comment
           id={id}
           comment={comment}
           onReply={() => setIsReplying((isReplying) => !isReplying)}
         />
-        <div className='flex'>
-          <div className='mx-4 w-0.5 bg-neutral-300 dark:bg-neutral-600' />
-          <div className='w-full'>
+        <div className='relative'>
+          <div className='py-2 ml-8'>
             {isReplying && (
               <CreateComment
-                className='px-4 py-2'
+                className='pl-4 pb-8 pt-2'
                 actionButtonText='Reply'
                 setVisibility={(visibility) => setIsReplying(visibility)}
               />
@@ -38,8 +41,12 @@ const CommentNode = ({ id, comment }: Props) => {
                 <CommentNode key={value[0]} id={value[0]} comment={value[1]} />
               ))}
           </div>
+          <div className='w-8 flex justify-center absolute left-0 top-0 bottom-0'>
+            <div className='w-0.5 bg-neutral-300 dark:bg-neutral-600' />
+          </div>
         </div>
-      </div>
+        <ConfirmDeleteCommentModal />
+      </DeleteCommentProvider>
     </CommentContext.Provider>
   );
 };

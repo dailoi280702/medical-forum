@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import {
   HandThumbUpIcon,
   HandThumbDownIcon,
   ChatBubbleLeftIcon,
   CheckCircleIcon,
-  PencilIcon,
-  TrashIcon,
-  EllipsisHorizontalIcon,
 } from '@heroicons/react/24/outline';
 import {
   HandThumbUpIcon as HandThumbUpIconFilled,
@@ -15,10 +12,6 @@ import {
 } from '@heroicons/react/24/solid';
 import { StanddardIconButton } from '../Button';
 import { useSession } from 'next-auth/react';
-import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-import { Menu, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useRef } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import CommentDropdownMenu from './CommentDropdownMenu';
 
 type Props = {
@@ -57,18 +50,18 @@ const CommentDetail: React.FC<Props> = ({
   const { data: session } = useSession();
 
   return (
-    <div className="group">
+    <div className='group'>
       <div
-        className="none-preflight post-content my-1"
+        className='none-preflight post-content my-3'
         dangerouslySetInnerHTML={{ __html: html }}
       />
-      <div className="flex items-center my-1 space-x-4">
+      <div className='flex items-center space-x-4'>
         {' '}
         <StanddardIconButton
-          primaryColor="blue"
+          primaryColor='blue'
           active={isLiked}
           activeChildren={
-            <HandThumbUpIconFilled className="text-blue-500 dark:text-blue-200" />
+            <HandThumbUpIconFilled className='text-blue-500 dark:text-blue-200' />
           }
           text={String(numberOfLikes)}
           onClick={onLike}
@@ -76,10 +69,10 @@ const CommentDetail: React.FC<Props> = ({
           <HandThumbUpIcon />
         </StanddardIconButton>
         <StanddardIconButton
-          primaryColor="blue"
+          primaryColor='blue'
           active={isDisliked}
           activeChildren={
-            <HandThumbDownIconFilled className="text-blue-500 dark:text-blue-200" />
+            <HandThumbDownIconFilled className='text-blue-500 dark:text-blue-200' />
           }
           text={String(numberOfDislikes)}
           onClick={onDislike}
@@ -102,18 +95,18 @@ const CommentDetail: React.FC<Props> = ({
         )}
         {!isCommentAuthor && isPostAuthor && (
           <StanddardIconButton
-            primaryColor="green"
+            primaryColor='green'
             onClick={onMark}
             active={isSolution}
             activeChildren={
-              <CheckCircleIconFilled className="text-green-500 dark:text-green-200" />
+              <CheckCircleIconFilled className='text-green-500 dark:text-green-200' />
             }
           >
             <CheckCircleIcon />
           </StanddardIconButton>
         )}
         {session && (
-          <div className="hidden group-hover:inline-flex items-center space-x-2"></div>
+          <div className='hidden group-hover:inline-flex items-center space-x-2'></div>
         )}
       </div>
     </div>

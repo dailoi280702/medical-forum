@@ -27,6 +27,7 @@ const PostPage = () => {
   const [loaded, setLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const loadedWithMemo = useMemo(() => loaded, [loaded]);
+  const deleteEnable = !post?.numberOfComment || post.numberOfComment === 0;
 
   // useEffect(
   //   () =>
@@ -65,7 +66,7 @@ const PostPage = () => {
 
   return (
     <>
-      <div className="h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute" />
+      <div className='h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute' />
       <Header />
       <PageWrapper>
         {loadedWithMemo && (
@@ -84,10 +85,10 @@ const PostPage = () => {
                     >
                       <Post id={id as string} post={post}>
                         {post.authorId === session?.user.uid && (
-                          <div className="ml-auto">
+                          <div className='ml-auto'>
                             <PostMenu
-                              deleteDisabled={post.numberOfComment !== 0}
-                              editDisabled={post.numberOfComment !== 0}
+                              deleteDisabled={!deleteEnable}
+                              editDisabled={!deleteEnable}
                               onDelete={openModal}
                               onEdit={() => setEditMode(true)}
                             />
@@ -95,13 +96,10 @@ const PostPage = () => {
                         )}
                       </Post>
                     </UpdatePost>
-                    <div className="h-24" />
-                    <div className="sm:px-12">
+                    <div className='sm:pl-4 my-12'>
                       <CreateComment alwaysDisplay={true} />
                     </div>
-                    <div className="py-12">
-                      <CommentTree />
-                    </div>
+                    <CommentTree />
                   </QuestionContext.Provider>
                 )}
               </PostWrapper>
@@ -112,15 +110,15 @@ const PostPage = () => {
         )}
       </PageWrapper>
       <ConfirmModal
-        title="Confirm Deletion"
+        title='Confirm Deletion'
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={deleteQuestion}
-        confirmText="Delete"
-        cancleText="Cancle"
+        confirmText='Delete'
+        cancleText='Cancle'
       >
         <>
-          <p className="text-sm">
+          <p className='text-sm'>
             This action <strong>Can not</strong> be undo
             <br /> Are you sure to continue?
           </p>
