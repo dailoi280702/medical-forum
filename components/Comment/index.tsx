@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import CreateComment, { DComment } from '../CreateComment';
 import Image from 'next/image';
 import Moment from 'react-moment';
@@ -12,9 +12,10 @@ export const CommentContext = createContext<Comment>(null);
 type Props = {
   comment: DComment;
   id: string;
+  onReply?: () => any;
 };
 
-function Comment({ id, comment }: Props) {
+function Comment({ id, comment, onReply }: Props) {
   const question = useContext(QuestionContext);
   const { data: session } = useSession();
   const isSolution = question?.sovledCommentId === id;
@@ -23,49 +24,51 @@ function Comment({ id, comment }: Props) {
 
   return (
     <CommentContext.Provider value={{ id: id, ...comment }}>
-      <div className="flex items center">
-        <div className="relative rounded-full w-8 h-8 overflow-hidden mr-4">
+      <div className='flex items-center'>
+        <div className='relative rounded-full w-8 h-8 overflow-hidden mr-4'>
           <Image
-            className="rounded-full object-cover overflow-hidden"
+            className='rounded-full object-cover'
             src={comment.authorImg}
-            sizes="w-8 h-8"
+            sizes='w-8 h-8'
             alt={comment.authorName}
             fill
           />
         </div>
-        <p className="font-medium text-sm text-neutral-700 dark:text-neutral-200">
+        <p className='font-medium text-sm text-neutral-700 dark:text-neutral-200'>
           {comment.authorName}
         </p>
         {comment.createdDate && (
           <Moment
-            className="text-sm ml-4 text-neutral-500 dark:text-neutral-400"
+            className='text-sm ml-4 text-neutral-500 dark:text-neutral-400'
             fromNow
           >
             {comment.createdDate.toDate()}
           </Moment>
         )}
         {isSolution && (
-          <p className="text-sm ml-4 text-green-500 dark:text-green-200">
+          <p className='text-sm ml-4 text-green-500 dark:text-green-200'>
             (SOLUTION)
           </p>
         )}
       </div>
-
-      <div className="flex ">
-        <div
-          className={`mx-4 w-0.5 ${
-            isSolution
-              ? 'bg-green-500 dark:bg-green-200'
-              : 'bg-gray-300 dark:bg-neutral-600'
-          }`}
-        />
-        <div className="ml-4 flex flex-col w-full">
+      <div className='relative max-w-full'>
+        <div className='ml-12 flex flex-col'>
           <CommentDetail
             html={comment.html}
             numberOfDislikes={comment.numberOfDislikes}
             numberOfLikes={comment.numberOfLikes}
             isPostAuthor={isPostAuthor}
             isCommentAuthor={isCommentAuthor}
+            onComment={onReply}
+          />
+        </div>
+        <div className='w-8 flex justify-center absolute left-0 top-0 bottom-0'>
+          <div
+            className={`w-0.5 ${
+              isSolution
+                ? 'bg-green-500 dark:bg-green-200'
+                : 'bg-gray-300 dark:bg-neutral-600'
+            }`}
           />
         </div>
       </div>
