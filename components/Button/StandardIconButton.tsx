@@ -38,8 +38,8 @@ const StanddardIconButton = (props: Props) => {
   } = props;
 
   return (
-    <div className="inline-flex items-center space-x-1">
-      <AnimatePresence mode="wait">
+    <div className='inline-flex items-center space-x-1'>
+      <AnimatePresence mode='wait'>
         <motion.button
           className={
             buttonColors[primaryColor ?? 'gray'] +
@@ -58,7 +58,11 @@ const StanddardIconButton = (props: Props) => {
         </motion.button>
       </AnimatePresence>
       {text && (
-        <motion.p className={active ? textColor[primaryColor ?? 'gray'] : ''}>
+        <motion.p
+          className={`hidden sm:inline ${
+            active ? textColor[primaryColor ?? 'gray'] : ''
+          }`}
+        >
           {text}
         </motion.p>
       )}

@@ -13,7 +13,7 @@ const PostWrapper: React.FC<Props> = (props) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={`rounded-lg border mb-4 p-4 bg-neutral-50 dark:bg-zinc-800/50 list-none ${
+        className={`rounded-lg border mb-4 p-4 sm:pr-8 bg-neutral-50 dark:bg-zinc-800/50 list-none ${
           onClick ? 'cursor-pointer' : ''
         } ${
           darkerBorder
