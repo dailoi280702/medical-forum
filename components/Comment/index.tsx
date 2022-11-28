@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import CommentDetail from './commentDetail';
 import { QuestionContext } from '@/pages/question/[id]';
 import { useSession } from 'next-auth/react';
+import UpdateCommentWrapper, { UpdateCommentProvider } from '../UpdateComment';
 
 type Comment = (DComment & { id: string }) | null;
 export const CommentContext = createContext<Comment>(null);
@@ -24,7 +25,7 @@ function Comment({ id, comment, onReply }: Props) {
 
   return (
     <CommentContext.Provider value={{ id: id, ...comment }}>
-      <div className='flex items-center'>
+      <div className='mt-2 flex items-center text-sm space-x-2 text-neutral-500 dark:text-neutral-400'>
         <div className='relative rounded-full w-8 h-8 overflow-hidden mr-4'>
           <Image
             className='rounded-full object-cover'
@@ -38,13 +39,9 @@ function Comment({ id, comment, onReply }: Props) {
           {comment.authorName}
         </p>
         {comment.createdDate && (
-          <Moment
-            className='text-sm ml-4 text-neutral-500 dark:text-neutral-400'
-            fromNow
-          >
-            {comment.createdDate.toDate()}
-          </Moment>
+          <Moment fromNow>{comment.createdDate.toDate()}</Moment>
         )}
+        {comment.editedDate && <p>[edited]</p>}
         {isSolution && (
           <p className='text-sm ml-4 text-green-500 dark:text-green-200'>
             (SOLUTION)
@@ -53,14 +50,18 @@ function Comment({ id, comment, onReply }: Props) {
       </div>
       <div className='relative max-w-full'>
         <div className='ml-12 flex flex-col'>
-          <CommentDetail
-            html={comment.html}
-            numberOfDislikes={comment.numberOfDislikes}
-            numberOfLikes={comment.numberOfLikes}
-            isPostAuthor={isPostAuthor}
-            isCommentAuthor={isCommentAuthor}
-            onComment={onReply}
-          />
+          <UpdateCommentProvider>
+            <UpdateCommentWrapper>
+              <CommentDetail
+                html={comment.html}
+                numberOfDislikes={comment.numberOfDislikes}
+                numberOfLikes={comment.numberOfLikes}
+                isPostAuthor={isPostAuthor}
+                isCommentAuthor={isCommentAuthor}
+                onComment={onReply}
+              />
+            </UpdateCommentWrapper>
+          </UpdateCommentProvider>
         </div>
         <div className='w-8 flex justify-center absolute left-0 top-0 bottom-0'>
           <div
