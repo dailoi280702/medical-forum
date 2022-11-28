@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import { SessionProvider } from 'next-auth/react';
 import { useEffect } from 'react';
+import SavePostsProvider from '@/components/SavePost';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const getTheme = () => {
@@ -30,7 +31,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <SessionProvider>
-        <Component {...pageProps} />
+        <SavePostsProvider>
+          <Component {...pageProps} />
+        </SavePostsProvider>
       </SessionProvider>
     </RecoilRoot>
   );
