@@ -27,11 +27,11 @@ const CommentNode = ({ id, comment }: Props) => {
           comment={comment}
           onReply={() => setIsReplying((isReplying) => !isReplying)}
         />
-        <div className='relative'>
-          <div className='py-2 ml-8'>
+        <div className='relative flex'>
+          <div className='ml-8'>
             {isReplying && (
               <CreateComment
-                className='pl-4 pb-8 pt-2'
+                className='pl-4 pt-2 block'
                 actionButtonText='Reply'
                 setVisibility={(visibility) => setIsReplying(visibility)}
               />

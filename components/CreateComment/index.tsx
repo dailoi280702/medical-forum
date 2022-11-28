@@ -46,9 +46,9 @@ const CreateComment = ({
           actionButtonText={actionButtonText}
         />
       ) : (
-        <p className='w-full text-center text-xl'>
+        <p className="w-full text-center text-xl">
           <button
-            className='font-semibold opacity-80 hover:opacity-100 hover:underline hover:scale-105 text-blue-600 dark:text-blue-400 transition-transform'
+            className="font-semibold opacity-80 hover:opacity-100 hover:underline hover:scale-105 text-blue-600 dark:text-blue-400 transition-transform"
             onClick={() => signIn()}
           >
             Sign In
