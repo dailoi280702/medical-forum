@@ -73,11 +73,7 @@ const Post = ({
           solved={Boolean(post.sovledCommentId)}
           numberOfWaitings={0}
           numberOfComments={post.numberOfComment ?? 0}
-          saved={false}
           interested={true}
-          savePost={() => {
-            console.log('save clicked');
-          }}
           setInterested={() => {
             console.log('set interested clicked');
           }}

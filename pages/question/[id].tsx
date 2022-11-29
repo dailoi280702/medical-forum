@@ -29,17 +29,6 @@ const PostPage = () => {
   const loadedWithMemo = useMemo(() => loaded, [loaded]);
   const deleteEnable = !post?.numberOfComment || post.numberOfComment === 0;
 
-  // useEffect(
-  //   () =>
-  //     onSnapshot(doc(db, 'question', 'kF2sROabBdcuGjJUL5IN'), (snapshot) => {
-  //       setPost(snapshot.data() as DPost);
-  //       console.log(post);
-  //       console.log('dlkj');
-  //       setLoaded(true);
-  //     }),
-  //   [id]
-  // );
-
   useEffect(() => {
     {
       if (!id) return;
@@ -66,7 +55,7 @@ const PostPage = () => {
 
   return (
     <>
-      <div className='h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute' />
+      <div className="h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute" />
       <Header />
       <PageWrapper>
         {loadedWithMemo && (
@@ -85,7 +74,7 @@ const PostPage = () => {
                     >
                       <Post id={id as string} post={post}>
                         {post.authorId === session?.user.uid && (
-                          <div className='ml-auto'>
+                          <div className="ml-auto">
                             <PostMenu
                               deleteDisabled={!deleteEnable}
                               editDisabled={!deleteEnable}
@@ -96,7 +85,7 @@ const PostPage = () => {
                         )}
                       </Post>
                     </UpdatePost>
-                    <div className='sm:pl-4 my-12'>
+                    <div className="sm:pl-4 my-12">
                       <CreateComment alwaysDisplay={true} />
                     </div>
                     <CommentTree />
@@ -110,15 +99,15 @@ const PostPage = () => {
         )}
       </PageWrapper>
       <ConfirmModal
-        title='Confirm Deletion'
+        title="Confirm Deletion"
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={deleteQuestion}
-        confirmText='Delete'
-        cancleText='Cancle'
+        confirmText="Delete"
+        cancleText="Cancle"
       >
         <>
-          <p className='text-sm'>
+          <p className="text-sm">
             This action <strong>Can not</strong> be undo
             <br /> Are you sure to continue?
           </p>

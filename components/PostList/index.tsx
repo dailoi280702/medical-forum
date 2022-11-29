@@ -11,15 +11,11 @@ import { useState, useEffect } from 'react';
 import { db } from '../../firebase/clientApp';
 import { useRouter } from 'next/router';
 import PostWrapper from '../Post/PostWrapper';
+import { QuestionContext } from '@/pages/question/[id]';
 
 const PostList = () => {
   const router = useRouter();
   const [posts, setPosts] = useState<Map<string, DPost>>(new Map([]));
-
-  const getUpvote = async () => {
-    const snapshot = await getCountFromServer(collection(db, 'likes'));
-    return snapshot.data().count;
-  };
 
   useEffect(
     () =>
@@ -52,7 +48,9 @@ const PostList = () => {
               router.push(`/question/${value[0]}`);
             }}
           >
-            <Post id={value[0]} post={value[1]} />
+            <QuestionContext.Provider value={{ id: value[0], ...value[1] }}>
+              <Post id={value[0]} post={value[1]} />
+            </QuestionContext.Provider>
           </PostWrapper>
         ))}
     </ul>
