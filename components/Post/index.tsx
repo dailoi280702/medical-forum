@@ -5,6 +5,7 @@ import PostHead from './PostHead';
 import PostContent from './PostContent';
 import PostTool from './PostTools';
 import PostMenu from './PostMenu';
+import { useSession } from 'next-auth/react';
 
 export interface DPost {
   authorId: string;
@@ -34,21 +35,7 @@ const Post = ({
   post: DPost;
   children?: ReactNode;
 }) => {
-  // const [interesteds, setInteresteds] = useState<Map<string, Timestamp>>(
-  //   new Map()
-  // );
-  //
-  // useEffect(
-  //   () =>
-  //     onSnapshot(collection(db, 'interested', id, 'data'), (snapshot) => {
-  //       setInteresteds(
-  //         new Map(
-  //           snapshot.docs.map((doc) => [doc.id, { ...doc.data() } as Timestamp])
-  //         )
-  //       );
-  //     }),
-  //   [id]
-  // );
+  const { data: session } = useSession();
 
   return (
     <>
@@ -68,16 +55,16 @@ const Post = ({
           html={post.html}
           edited={Boolean(post.editedDate)}
         />
-        <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
-        <PostTool
-          solved={Boolean(post.sovledCommentId)}
-          numberOfWaitings={0}
-          numberOfComments={post.numberOfComment ?? 0}
-          interested={true}
-          setInterested={() => {
-            console.log('set interested clicked');
-          }}
-        />
+        {session && (
+          <>
+            <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
+            <PostTool
+              solved={Boolean(post.sovledCommentId)}
+              numberOfWaitings={post.numberOfWaitings ?? 0}
+              numberOfComments={post.numberOfComment ?? 0}
+            />
+          </>
+        )}
       </div>
     </>
   );
