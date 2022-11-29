@@ -8,6 +8,7 @@ import {
   serverTimestamp,
   setDoc,
   collection,
+  writeBatch,
 } from 'firebase/firestore';
 import { useContext, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
@@ -44,33 +45,30 @@ const useSetWaiting = () => {
         session.user.uid
       );
 
+      const batch = writeBatch(db);
+
       if (isWaiting) {
-        deleteDoc(waitingPostRef);
-        deleteDoc(waitingUserRef);
-        return;
+        batch.delete(waitingPostRef);
+        batch.delete(waitingUserRef);
+      } else {
+        batch.set(waitingPostRef, {
+          postId: post.id,
+          userId: session.user.uid,
+          setWaitingAt: serverTimestamp(),
+        } as WaitingDetail);
+        batch.set(waitingUserRef, {
+          postId: post.id,
+          userId: session.user.uid,
+          setWaitingAt: serverTimestamp(),
+        } as WaitingDetail);
       }
 
-      await setDoc(waitingPostRef, {
-        postId: post.id,
-        userId: session.user.uid,
-        setWaitingAt: serverTimestamp(),
-      } as WaitingDetail);
-
-      await setDoc(waitingUserRef, {
-        postId: post.id,
-        userId: session.user.uid,
-        setWaitingAt: serverTimestamp(),
-      } as WaitingDetail);
-
-      const x = await getCountFromServer(
-        collection(db, 'question', post.id, 'waitingUsers')
-      );
-
-      console.log(x.data().count);
-
-      await updateDoc(doc(db, 'question', post.id), {
-        numberOfWaitings: x.data().count,
+      const currentWaiting = post.numberOfWaitings ?? 0;
+      batch.update(doc(db, 'question', post.id), {
+        numberOfWaitings: isWaiting ? currentWaiting - 1 : currentWaiting + 1,
       });
+
+      batch.commit().catch((e) => console.log(e));
     } catch (e) {
       console.log(e);
     }
