@@ -3,16 +3,10 @@ import { ClockIcon as ClockFilled } from '@heroicons/react/24/solid';
 import { useSetWaiting } from '../WaitForAnswer';
 
 type Props = {
-  interested: boolean;
   numberOfInteresteds: number;
-  onClick: () => void;
 };
 
-const SetWaitingIconButton = ({
-  interested,
-  numberOfInteresteds,
-  onClick,
-}: Props) => {
+const SetWaitingIconButton = ({ numberOfInteresteds }: Props) => {
   const { isWaiting, setWatingForPost } = useSetWaiting();
 
   return (

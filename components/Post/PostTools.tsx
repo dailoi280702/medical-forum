@@ -7,16 +7,12 @@ type Props = {
   numberOfWaitings: number;
   numberOfComments: number;
   solved: boolean;
-  interested: boolean;
-  setInterested: () => void;
 };
 
 const PostTool = ({
   numberOfWaitings: numberOfInteresteds,
   numberOfComments,
   solved,
-  interested,
-  setInterested,
 }: Props) => {
   return (
     <section className="flex items-center">
@@ -28,11 +24,7 @@ const PostTool = ({
           </p>
         </>
       ) : (
-        <SetWaitingIconButton
-          interested={interested}
-          numberOfInteresteds={numberOfInteresteds}
-          onClick={setInterested}
-        />
+        <SetWaitingIconButton numberOfInteresteds={numberOfInteresteds} />
       )}
       <CommentIconButton numberOfComments={numberOfComments} />
       <SavePostIconButton />

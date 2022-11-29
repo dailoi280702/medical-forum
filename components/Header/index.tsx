@@ -5,6 +5,7 @@ import {
   BookmarkIcon,
   ArrowLeftOnRectangleIcon,
   ArrowRightOnRectangleIcon,
+  ClockIcon,
 } from '@heroicons/react/24/outline';
 import ThemeToggleButton from '../ToogleThemeButton';
 import useToggleThemeHook from '../ToogleThemeButton/ToogleThemeHook';
@@ -14,12 +15,47 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { ReactNode } from 'react';
 
 const Header = () => {
   const [open, setOpen] = useRecoilState(headerState);
   const { dark, toggleTheme } = useToggleThemeHook();
   const { data: session } = useSession();
   const router = useRouter();
+
+  type RouteData = {
+    route: string;
+    text: string;
+    isAuthenticationRequired: boolean;
+    icons: ReactNode;
+  };
+
+  const routesRecord: Array<RouteData> = [
+    {
+      route: '/',
+      text: 'Home',
+      isAuthenticationRequired: false,
+      icons: <HomeIcon className="header-nav-icon" />,
+    },
+    {
+      route: '/your_questions',
+      text: 'Your Quesitons',
+      isAuthenticationRequired: true,
+      icons: <WindowIcon className="header-nav-icon" />,
+    },
+    {
+      route: '/saved_questions',
+      text: 'Saved Quesitons',
+      isAuthenticationRequired: true,
+      icons: <BookmarkIcon className="header-nav-icon" />,
+    },
+    {
+      route: '/waiting_list',
+      text: 'Waiting List',
+      isAuthenticationRequired: true,
+      icons: <ClockIcon className="header-nav-icon" />,
+    },
+  ];
 
   return (
     <nav className="sticky overflow-hidden top-0 w-full min-w-min z-20 bg-white/80 text-neutral-900  p-4 shadow-sm transition-all dark:shadow-md dark:text-neutral-100 dark:bg-neutral-800/80 backdrop-blur-sm">
@@ -46,25 +82,20 @@ const Header = () => {
               !open ? 'hidden' : ''
             }`}
           >
-            <div className="header-nav-item" onClick={() => router.push('/')}>
-              <div>
-                <HomeIcon className="header-nav-icon" />
-              </div>
-              <h3>Home</h3>
-            </div>
+            {routesRecord
+              .filter((route) => !route.isAuthenticationRequired || session)
+              .map((route) => (
+                <div
+                  key={route.route}
+                  className="header-nav-item"
+                  onClick={() => router.push(route.route)}
+                >
+                  <div>{route.icons}</div>
+                  <h3>{route.text}</h3>
+                </div>
+              ))}
             {session ? (
               <>
-                <div className="header-nav-item">
-                  <WindowIcon className="header-nav-icon" />
-                  <h3>Your Quesitons</h3>
-                </div>
-                <div
-                  className="header-nav-item"
-                  onClick={() => router.push('/saved_questions')}
-                >
-                  <BookmarkIcon className="header-nav-icon" />
-                  <h3 className="flex-1">Saved Quesitons</h3>
-                </div>
                 <div className="header-nav-item md:hidden hover:text-red-600 dark:hover:text-red-400">
                   <ArrowRightOnRectangleIcon className="header-nav-icon" />
                   <button onClick={() => signOut()}>

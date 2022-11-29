@@ -1,6 +1,14 @@
 import { QuestionContext } from '@/pages/question/[id]';
 import { db } from '../../firebase/clientApp';
-import { deleteDoc, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  deleteDoc,
+  updateDoc,
+  doc,
+  getCountFromServer,
+  serverTimestamp,
+  setDoc,
+  collection,
+} from 'firebase/firestore';
 import { useContext, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import { WaitingDetail, WaitingPostsContext } from './index';
@@ -16,7 +24,7 @@ const useSetWaiting = () => {
     return waitingPosts.has(post.id);
   }, [post, waitingPosts, session]);
 
-  const setWatingForPost = () => {
+  const setWatingForPost = async () => {
     if (!post || post.sovledCommentId || !waitingPosts || !session) return;
 
     try {
@@ -42,17 +50,27 @@ const useSetWaiting = () => {
         return;
       }
 
-      setDoc(waitingPostRef, {
+      await setDoc(waitingPostRef, {
         postId: post.id,
         userId: session.user.uid,
         setWaitingAt: serverTimestamp(),
       } as WaitingDetail);
 
-      setDoc(waitingUserRef, {
+      await setDoc(waitingUserRef, {
         postId: post.id,
         userId: session.user.uid,
         setWaitingAt: serverTimestamp(),
       } as WaitingDetail);
+
+      const x = await getCountFromServer(
+        collection(db, 'question', post.id, 'waitingUsers')
+      );
+
+      console.log(x.data().count);
+
+      await updateDoc(doc(db, 'question', post.id), {
+        numberOfWaitings: x.data().count,
+      });
     } catch (e) {
       console.log(e);
     }
