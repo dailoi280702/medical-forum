@@ -55,60 +55,62 @@ const CommentDetail: React.FC<Props> = ({
         className='none-preflight post-content my-3'
         dangerouslySetInnerHTML={{ __html: html }}
       />
-      <div className='flex items-center space-x-4'>
-        {' '}
-        <StanddardIconButton
-          primaryColor='blue'
-          active={isLiked}
-          activeChildren={
-            <HandThumbUpIconFilled className='text-blue-500 dark:text-blue-200' />
-          }
-          text={String(numberOfLikes)}
-          onClick={onLike}
-        >
-          <HandThumbUpIcon />
-        </StanddardIconButton>
-        <StanddardIconButton
-          primaryColor='blue'
-          active={isDisliked}
-          activeChildren={
-            <HandThumbDownIconFilled className='text-blue-500 dark:text-blue-200' />
-          }
-          text={String(numberOfDislikes)}
-          onClick={onDislike}
-        >
-          <HandThumbDownIcon />
-        </StanddardIconButton>
-        <StanddardIconButton text={'reply'} onClick={onComment}>
-          <ChatBubbleLeftIcon />
-        </StanddardIconButton>
-        {isCommentAuthor && (
-          <CommentDropdownMenu
-            markEnabled={isPostAuthor && isCommentAuthor}
-            deleteEnabled={true}
-            editEnabled={true}
-            marked={isSolution}
-            onMark={onMark}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-        )}
-        {!isCommentAuthor && isPostAuthor && (
+      {session && (
+        <div className='flex items-center space-x-4'>
+          {' '}
           <StanddardIconButton
-            primaryColor='green'
-            onClick={onMark}
-            active={isSolution}
+            primaryColor='blue'
+            active={isLiked}
             activeChildren={
-              <CheckCircleIconFilled className='text-green-500 dark:text-green-200' />
+              <HandThumbUpIconFilled className='text-blue-500 dark:text-blue-200' />
             }
+            text={String(numberOfLikes)}
+            onClick={onLike}
           >
-            <CheckCircleIcon />
+            <HandThumbUpIcon />
           </StanddardIconButton>
-        )}
-        {session && (
-          <div className='hidden group-hover:inline-flex items-center space-x-2'></div>
-        )}
-      </div>
+          <StanddardIconButton
+            primaryColor='blue'
+            active={isDisliked}
+            activeChildren={
+              <HandThumbDownIconFilled className='text-blue-500 dark:text-blue-200' />
+            }
+            text={String(numberOfDislikes)}
+            onClick={onDislike}
+          >
+            <HandThumbDownIcon />
+          </StanddardIconButton>
+          <StanddardIconButton text={'reply'} onClick={onComment}>
+            <ChatBubbleLeftIcon />
+          </StanddardIconButton>
+          {isCommentAuthor && (
+            <CommentDropdownMenu
+              markEnabled={isPostAuthor && isCommentAuthor}
+              deleteEnabled={true}
+              editEnabled={true}
+              marked={isSolution}
+              onMark={onMark}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          )}
+          {!isCommentAuthor && isPostAuthor && (
+            <StanddardIconButton
+              primaryColor='green'
+              onClick={onMark}
+              active={isSolution}
+              activeChildren={
+                <CheckCircleIconFilled className='text-green-500 dark:text-green-200' />
+              }
+            >
+              <CheckCircleIcon />
+            </StanddardIconButton>
+          )}
+          {session && (
+            <div className='hidden group-hover:inline-flex items-center space-x-2'></div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

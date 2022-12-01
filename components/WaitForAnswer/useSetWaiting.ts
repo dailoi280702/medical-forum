@@ -26,7 +26,7 @@ const useSetWaiting = () => {
   }, [post, waitingPosts, session]);
 
   const setWatingForPost = async () => {
-    if (!post || post.sovledCommentId || !waitingPosts || !session) return;
+    if (!post || post.solvedCommentId || !waitingPosts || !session) return;
 
     try {
       const waitingPostRef = doc(
