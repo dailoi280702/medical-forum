@@ -5,11 +5,11 @@ import { useContext, useEffect, useState } from 'react';
 import PostWrapper from '@/components/Post/PostWrapper';
 import { QuestionContext } from '@/pages/question/[id]';
 import { useRouter } from 'next/router';
-import { WaitingPostsContext } from '..';
+import { WaitingDetailsContext } from '..';
 
 const WaitingPostsList = () => {
   const router = useRouter();
-  const savedPostIds = useContext(WaitingPostsContext);
+  const savedPostIds = useContext(WaitingDetailsContext);
   const [savedPosts, setWaitingPosts] = useState<Map<string, DPost>>();
 
   useEffect(() => {

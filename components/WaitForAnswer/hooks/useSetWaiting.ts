@@ -1,39 +1,30 @@
 import { QuestionContext } from '@/pages/question/[id]';
-import { db } from '../../firebase/clientApp';
-import {
-  deleteDoc,
-  updateDoc,
-  doc,
-  getCountFromServer,
-  serverTimestamp,
-  setDoc,
-  collection,
-  writeBatch,
-} from 'firebase/firestore';
+import { db } from '../../../firebase/clientApp';
+import { doc, serverTimestamp, writeBatch } from 'firebase/firestore';
 import { useContext, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
-import { WaitingDetail, WaitingPostsContext } from './index';
+import { WaitingDetail, WaitingDetailsContext } from '..';
 
 const useSetWaiting = () => {
   const { data: session } = useSession();
   const post = useContext(QuestionContext);
-  const waitingPosts = useContext(WaitingPostsContext);
+  const waitingDetails = useContext(WaitingDetailsContext);
 
   const isWaiting = useMemo(() => {
-    if (!post || !waitingPosts || !session) return false;
+    if (!post || !waitingDetails || !session) return false;
 
-    return waitingPosts.has(post.id);
-  }, [post, waitingPosts, session]);
+    return waitingDetails.has(post.id);
+  }, [post, waitingDetails, session]);
 
   const setWatingForPost = async () => {
-    if (!post || post.solvedCommentId || !waitingPosts || !session) return;
+    if (!post || post.solvedCommentId || !waitingDetails || !session) return;
 
     try {
       const waitingPostRef = doc(
         db,
         'users',
         session.user.uid,
-        'waitingPosts',
+        'waitingDetails',
         post.id
       );
 
@@ -41,7 +32,7 @@ const useSetWaiting = () => {
         db,
         'question',
         post.id,
-        'waitingUsers',
+        'waitingDetails',
         session.user.uid
       );
 

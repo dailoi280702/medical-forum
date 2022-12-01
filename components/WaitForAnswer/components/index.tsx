@@ -1,2 +1,2 @@
 export * from './WaitingPostsList';
-export * from './WatingPostsProvider';
+export * from './WatingDetailsProvider';
