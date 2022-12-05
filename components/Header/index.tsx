@@ -30,7 +30,7 @@ const Header = () => {
     icons: ReactNode;
   };
 
-  const routesRecord: Array<RouteData> = [
+  const routes: Array<RouteData> = [
     {
       route: '/',
       text: 'Home',
@@ -61,7 +61,10 @@ const Header = () => {
     <nav className="sticky overflow-hidden top-0 w-full min-w-min z-20 bg-white/80 text-neutral-900  p-4 shadow-sm transition-all dark:shadow-md dark:text-neutral-100 dark:bg-neutral-800/80 backdrop-blur-sm">
       <div className="flex flex-col items-start h-full max-w-6xl mx-auto text-md md:flex md:items-center md:flex-row md:space-x-8">
         <div className="flex justify-between items-center w-full md:w-fit">
-          <h1 className="text-3xl text-blue-500 font-bold truncate drop-shadow-lg shadow-black dark:text-blue-400">
+          <h1
+            className="text-3xl text-blue-500 font-bold truncate drop-shadow-lg shadow-black dark:text-blue-400 cursor-pointer"
+            onClick={() => router.push('/')}
+          >
             Medical Forum
           </h1>
           <div className="flex items-center space-x-4 md:hidden">
@@ -82,7 +85,7 @@ const Header = () => {
               !open ? 'hidden' : ''
             }`}
           >
-            {routesRecord
+            {routes
               .filter((route) => !route.isAuthenticationRequired || session)
               .map((route) => (
                 <div
@@ -91,7 +94,15 @@ const Header = () => {
                   onClick={() => router.push(route.route)}
                 >
                   <div>{route.icons}</div>
-                  <h3>{route.text}</h3>
+                  <h3
+                    className={
+                      router.asPath === route.route
+                        ? 'underline underline-offset-2 text-blue-500 dark:text-blue-400'
+                        : ''
+                    }
+                  >
+                    {route.text}
+                  </h3>
                 </div>
               ))}
             {session ? (

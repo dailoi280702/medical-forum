@@ -19,7 +19,7 @@ type Props = {
 function Comment({ id, comment, onReply }: Props) {
   const question = useContext(QuestionContext);
   const { data: session } = useSession();
-  const isSolution = question?.sovledCommentId === id;
+  const isSolution = question?.solvedCommentId === id;
   const isCommentAuthor = comment.authorId === session?.user.uid;
   const isPostAuthor = question?.authorId === session?.user.uid;
 
@@ -43,7 +43,7 @@ function Comment({ id, comment, onReply }: Props) {
         )}
         {comment.editedDate && <p>[edited]</p>}
         {isSolution && (
-          <p className='text-sm ml-4 text-green-500 dark:text-green-200'>
+          <p className='text-sm ml-4 text-green-600 dark:text-green-400'>
             (SOLUTION)
           </p>
         )}
@@ -67,7 +67,7 @@ function Comment({ id, comment, onReply }: Props) {
           <div
             className={`w-0.5 ${
               isSolution
-                ? 'bg-green-500 dark:bg-green-200'
+                ? 'bg-green-600 dark:bg-green-400'
                 : 'bg-gray-300 dark:bg-neutral-600'
             }`}
           />

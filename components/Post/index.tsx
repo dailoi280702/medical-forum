@@ -18,7 +18,8 @@ export interface DPost {
   numberOfComment?: number;
   numberOfWaitings?: number;
   interested?: number;
-  sovledCommentId?: string;
+  solvedCommentId?: string;
+  waitingUsers?: string[];
 }
 
 export interface DInterested {
@@ -59,7 +60,7 @@ const Post = ({
           <>
             <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
             <PostTool
-              solved={Boolean(post.sovledCommentId)}
+              solved={Boolean(post.solvedCommentId)}
               numberOfWaitings={post.numberOfWaitings ?? 0}
               numberOfComments={post.numberOfComment ?? 0}
             />
