@@ -19,6 +19,7 @@ export interface DPost {
   numberOfWaitings?: number;
   interested?: number;
   solvedCommentId?: string;
+  waitingUsers?: string[];
 }
 
 export interface DInterested {
@@ -40,7 +41,7 @@ const Post = ({
   return (
     <>
       {/** img, username, edited, sovled **/}
-      <div className='flex items-center'>
+      <div className="flex items-center">
         <PostHead
           authorName={post.authorName}
           authorImg={post.authorImg}
@@ -48,8 +49,8 @@ const Post = ({
         />
         {children}
       </div>
-      <div className='sm:ml-12'>
-        <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
+      <div className="sm:ml-12">
+        <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
         <PostContent
           title={post.title}
           html={post.html}
@@ -57,7 +58,7 @@ const Post = ({
         />
         {session && (
           <>
-            <hr className='my-4 border-neutral-300 dark:border-neutral-600' />
+            <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
             <PostTool
               solved={Boolean(post.solvedCommentId)}
               numberOfWaitings={post.numberOfWaitings ?? 0}

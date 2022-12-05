@@ -13,6 +13,7 @@ import {
 import { StanddardIconButton } from '../Button';
 import { useSession } from 'next-auth/react';
 import CommentDropdownMenu from './CommentDropdownMenu';
+import { useMarkCommentAsSolution } from '../MarkCommentAsSolution';
 
 type Props = {
   html: string;
@@ -45,9 +46,9 @@ const CommentDetail: React.FC<Props> = ({
   onEdit,
   onDelete,
   onMark,
-  isSolution,
 }) => {
   const { data: session } = useSession();
+  const { isSolution, markCommentAsSolution } = useMarkCommentAsSolution();
 
   return (
     <div className='group'>
@@ -89,7 +90,7 @@ const CommentDetail: React.FC<Props> = ({
               deleteEnabled={true}
               editEnabled={true}
               marked={isSolution}
-              onMark={onMark}
+              onMark={markCommentAsSolution}
               onEdit={onEdit}
               onDelete={onDelete}
             />
@@ -97,10 +98,10 @@ const CommentDetail: React.FC<Props> = ({
           {!isCommentAuthor && isPostAuthor && (
             <StanddardIconButton
               primaryColor='green'
-              onClick={onMark}
+              onClick={markCommentAsSolution}
               active={isSolution}
               activeChildren={
-                <CheckCircleIconFilled className='text-green-500 dark:text-green-200' />
+                <CheckCircleIconFilled className='text-green-600 dark:text-green-400' />
               }
             >
               <CheckCircleIcon />

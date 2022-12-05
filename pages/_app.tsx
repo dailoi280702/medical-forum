@@ -4,7 +4,6 @@ import { RecoilRoot } from 'recoil';
 import { SessionProvider } from 'next-auth/react';
 import { useEffect } from 'react';
 import SavePostsProvider from '@/components/SavePost';
-import { WaitingPostsProvider } from '@/components/WaitForAnswer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const getTheme = () => {
@@ -33,9 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <SessionProvider>
         <SavePostsProvider>
-          <WaitingPostsProvider>
-            <Component {...pageProps} />
-          </WaitingPostsProvider>
+          <Component {...pageProps} />
         </SavePostsProvider>
       </SessionProvider>
     </RecoilRoot>
