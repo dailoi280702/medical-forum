@@ -14,6 +14,7 @@ import { StanddardIconButton } from '../Button';
 import { useSession } from 'next-auth/react';
 import CommentDropdownMenu from './CommentDropdownMenu';
 import { useMarkCommentAsSolution } from '../MarkCommentAsSolution';
+import { useSetVoteComment } from '../VoteComment';
 
 type Props = {
   html: string;
@@ -38,8 +39,6 @@ const CommentDetail: React.FC<Props> = ({
   numberOfDislikes,
   isCommentAuthor,
   isPostAuthor,
-  isLiked,
-  isDisliked,
   onLike,
   onDislike,
   onComment,
@@ -49,6 +48,7 @@ const CommentDetail: React.FC<Props> = ({
 }) => {
   const { data: session } = useSession();
   const { isSolution, markCommentAsSolution } = useMarkCommentAsSolution();
+  const { isLiked, isDisliked, voteComment } = useSetVoteComment();
 
   return (
     <div className='group'>
@@ -66,7 +66,7 @@ const CommentDetail: React.FC<Props> = ({
               <HandThumbUpIconFilled className='text-blue-500 dark:text-blue-200' />
             }
             text={String(numberOfLikes)}
-            onClick={onLike}
+            onClick={() => voteComment('like')}
           >
             <HandThumbUpIcon />
           </StanddardIconButton>
@@ -77,7 +77,7 @@ const CommentDetail: React.FC<Props> = ({
               <HandThumbDownIconFilled className='text-blue-500 dark:text-blue-200' />
             }
             text={String(numberOfDislikes)}
-            onClick={onDislike}
+            onClick={() => voteComment('disLike')}
           >
             <HandThumbDownIcon />
           </StanddardIconButton>
