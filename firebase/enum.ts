@@ -3,5 +3,6 @@ export enum CollectionEnum {
   QUESTIONS = 'question',
   SAVEDPOSTS = 'savedPosts',
   WAITINGDETAILS = 'waitingDetails',
-  LIKEDCOMMENTS = 'likedComments',
+  VOTEDCOMMENTS = 'votedComments',
+  COMMENTS = 'comments',
 }
