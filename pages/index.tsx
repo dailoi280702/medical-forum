@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <PageWrapper>
         <>
           <CreatePostField />
-          <div className='mt-20'>
+          <div className='mt-8'>
             <PostList />
           </div>
         </>
