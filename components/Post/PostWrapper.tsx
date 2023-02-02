@@ -24,6 +24,7 @@ const PostWrapper: React.FC<Props> = (props) => {
         initial={{ x: -300, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 300, opacity: 0 }}
+        transition={{ duration: 0.2 }}
       >
         {children}
       </motion.div>

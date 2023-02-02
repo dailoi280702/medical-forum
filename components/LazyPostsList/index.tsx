@@ -1,21 +1,18 @@
-import {
-  collection,
-  getCountFromServer,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-} from 'firebase/firestore';
-import Post, { DPost } from '../Post';
-import { useState, useEffect, useRef } from 'react';
-import { db } from '../../firebase/clientApp';
-import { useRouter } from 'next/router';
-import PostWrapper from '../Post/PostWrapper';
+import { db } from '@/firebase/clientApp';
 import { QuestionContext } from '@/pages/question/[id]';
+import { collection, getCountFromServer } from 'firebase/firestore';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import Post, { DPost } from '../Post';
+import PostWrapper from '../Post/PostWrapper';
 
-const PostList = () => {
+type Props = {
+  posts: Map<string, DPost>;
+  fetchPosts: (limit: number) => void;
+};
+
+const LazyPostsList = ({ posts, fetchPosts }: Props) => {
   const router = useRouter();
-  const [posts, setPosts] = useState<Map<string, DPost>>(new Map([]));
   const listRef = useRef<HTMLUListElement>(null);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -58,30 +55,12 @@ const PostList = () => {
       const numberOfPost = await getCountFromServer(collection(db, 'question'));
       if (numberOfPost.data().count <= PAGEPERLOAD * (page - 1)) return;
 
-      onSnapshot(
-        query(
-          collection(db, 'question'),
-          orderBy('timeStamp', 'desc'),
-          limit(page * PAGEPERLOAD)
-        ),
-        (snapshot) => {
-          setPosts(
-            new Map(
-              snapshot.docs.map((doc) => [
-                doc.id,
-                {
-                  ...(doc.data() as DPost),
-                },
-              ])
-            )
-          );
-          setLoading(false);
-        }
-      );
+      fetchPosts(page * PAGEPERLOAD);
+      setLoading(false);
     };
 
     getData();
-  }, [page]);
+  }, [fetchPosts, page]);
 
   return (
     <>
@@ -110,4 +89,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default LazyPostsList;
