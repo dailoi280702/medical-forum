@@ -20,7 +20,12 @@ const PostWrapper: React.FC<Props> = (props) => {
             ? 'border-neutral-500 dark:border-neutral-600'
             : 'border-neutral-400 dark:border-neutral-700'
         }`}
-        onClick={onClick}
+        onClick={(e) => {
+          e.preventDefault();
+          if (e.target === e.currentTarget && onClick) {
+            onClick();
+          }
+        }}
         initial={{ x: -300, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 300, opacity: 0 }}

@@ -22,7 +22,6 @@ const YourQuestions: NextPage = () => {
 
   const fetchPosts = (numberOfPosts: number) => {
     if (!session?.user.uid) return;
-    console.log('fuck');
 
     onSnapshot(
       query(
