@@ -51,8 +51,8 @@ const YourQuestions: NextPage = () => {
     <>
       <div className="h-screen w-full bg-neutral-100 dark:bg-neutral-900 dark:border- top-0 z-[-1] absolute" />
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Your questions</title>
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Header />
       <PageWrapper>
