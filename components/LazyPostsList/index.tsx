@@ -1,10 +1,8 @@
 import { db } from '@/firebase/clientApp';
-import { QuestionContext } from '@/pages/question/[id]';
 import { collection, getCountFromServer } from 'firebase/firestore';
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import Post, { DPost } from '../Post';
-import PostWrapper from '../Post/PostWrapper';
+import DefaultPostsList from '../DefaultPostsList';
+import { DPost } from '../Post';
 
 type Props = {
   posts: Map<string, DPost>;
@@ -12,7 +10,6 @@ type Props = {
 };
 
 const LazyPostsList = ({ posts, fetchPosts }: Props) => {
-  const router = useRouter();
   const listRef = useRef<HTMLUListElement>(null);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -62,39 +59,7 @@ const LazyPostsList = ({ posts, fetchPosts }: Props) => {
     getData();
   }, [fetchPosts, page]);
 
-  const openPostDetail = (id: string) => {
-    return () => {
-      router.push(`/question/${id}`);
-    };
-  };
-
-  return (
-    <>
-      <ul ref={listRef}>
-        {posts.size > 0 &&
-          Array.from(posts).map((value) => (
-            <PostWrapper
-              key={value[0]}
-              darkerBorder={true}
-              onClick={openPostDetail(value[0])}
-            >
-              <QuestionContext.Provider value={{ id: value[0], ...value[1] }}>
-                <Post
-                  id={value[0]}
-                  post={value[1]}
-                  onclick={openPostDetail(value[0])}
-                />
-              </QuestionContext.Provider>
-            </PostWrapper>
-          ))}
-      </ul>
-      {loading && (
-        <div className="w-full text-center text-neutral-300 dark:text-neutral-700 mt-8">
-          loading ... please wait
-        </div>
-      )}
-    </>
-  );
+  return <DefaultPostsList posts={posts} listRef={listRef} loading={loading} />;
 };
 
 export default LazyPostsList;

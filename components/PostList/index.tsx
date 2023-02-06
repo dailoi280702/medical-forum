@@ -6,15 +6,12 @@ import {
   orderBy,
   query,
 } from 'firebase/firestore';
-import Post, { DPost } from '../Post';
+import { DPost } from '../Post';
 import { useState, useEffect, useRef } from 'react';
 import { db } from '../../firebase/clientApp';
-import { useRouter } from 'next/router';
-import PostWrapper from '../Post/PostWrapper';
-import { QuestionContext } from '@/pages/question/[id]';
+import DefaultPostsList from '../DefaultPostsList';
 
 const PostList = () => {
-  const router = useRouter();
   const [posts, setPosts] = useState<Map<string, DPost>>(new Map([]));
   const listRef = useRef<HTMLUListElement>(null);
   const [page, setPage] = useState(1);
@@ -83,39 +80,7 @@ const PostList = () => {
     getData();
   }, [page]);
 
-  const openPostDetail = (id: string) => {
-    return () => {
-      router.push(`/question/${id}`);
-    };
-  };
-
-  return (
-    <>
-      <ul ref={listRef}>
-        {posts.size > 0 &&
-          Array.from(posts).map((value) => (
-            <PostWrapper
-              key={value[0]}
-              darkerBorder={true}
-              onClick={openPostDetail(value[0])}
-            >
-              <QuestionContext.Provider value={{ id: value[0], ...value[1] }}>
-                <Post
-                  id={value[0]}
-                  post={value[1]}
-                  onclick={openPostDetail(value[0])}
-                />
-              </QuestionContext.Provider>
-            </PostWrapper>
-          ))}
-      </ul>
-      {loading && (
-        <div className="w-full text-center text-neutral-300 dark:text-neutral-700 mt-8">
-          loading ... please wait
-        </div>
-      )}
-    </>
-  );
+  return <DefaultPostsList posts={posts} listRef={listRef} loading={loading} />;
 };
 
 export default PostList;
