@@ -31,10 +31,12 @@ const Post = ({
   id,
   post,
   children,
+  onclick,
 }: {
   id: string;
   post: DPost;
   children?: ReactNode;
+  onclick?: () => void;
 }) => {
   const { data: session } = useSession();
 
@@ -51,11 +53,13 @@ const Post = ({
       </div>
       <div className="sm:ml-12">
         <hr className="my-4 border-neutral-300 dark:border-neutral-600" />
-        <PostContent
-          title={post.title}
-          html={post.html}
-          edited={Boolean(post.editedDate)}
-        />
+        <div onClick={onclick}>
+          <PostContent
+            title={post.title}
+            html={post.html}
+            edited={Boolean(post.editedDate)}
+          />
+        </div>
         {session && (
           <>
             <hr className="my-4 border-neutral-300 dark:border-neutral-600" />

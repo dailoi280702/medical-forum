@@ -83,6 +83,12 @@ const PostList = () => {
     getData();
   }, [page]);
 
+  const openPostDetail = (id: string) => {
+    return () => {
+      router.push(`/question/${id}`);
+    };
+  };
+
   return (
     <>
       <ul ref={listRef}>
@@ -91,12 +97,14 @@ const PostList = () => {
             <PostWrapper
               key={value[0]}
               darkerBorder={true}
-              onClick={() => {
-                router.push(`/question/${value[0]}`);
-              }}
+              onClick={openPostDetail(value[0])}
             >
               <QuestionContext.Provider value={{ id: value[0], ...value[1] }}>
-                <Post id={value[0]} post={value[1]} />
+                <Post
+                  id={value[0]}
+                  post={value[1]}
+                  onclick={openPostDetail(value[0])}
+                />
               </QuestionContext.Provider>
             </PostWrapper>
           ))}
