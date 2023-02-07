@@ -31,7 +31,6 @@ const CommentDropdownMenu = ({
   markEnabled,
   editEnabled,
   deleteEnabled,
-  onEdit,
   onMark,
 }: Props) => {
   const deleteCommentContext = useContext(DeleteCommentContext);
@@ -53,8 +52,8 @@ const CommentDropdownMenu = ({
   };
 
   return (
-    <Menu as='div' className='relative'>
-      <Menu.Button as='div'>
+    <Menu as="div" className="relative">
+      <Menu.Button as="div">
         <StanddardIconButton>
           <EllipsisHorizontalIcon />
         </StanddardIconButton>
@@ -62,30 +61,34 @@ const CommentDropdownMenu = ({
       <Menu.Items
         as={motion.div}
         layout
-        className='flex space-x-1 mt-1 p-2 absolute -right-14 bottom-12 shadow border border-neutral-200 dark:border-neutral-700 rounded-lg bg-neutral-100 dark:bg-neutral-800'
+        className="flex space-x-1 mt-1 p-2 absolute -right-14 bottom-12 shadow border border-neutral-200 dark:border-neutral-700 rounded-lg bg-neutral-100 dark:bg-neutral-800"
       >
-        {deleteEnabled && (
-          <Menu.Item as='div'>
-            <StanddardIconButton primaryColor='red' onClick={openConfirmModal}>
-              <TrashIcon />
-            </StanddardIconButton>
-          </Menu.Item>
-        )}
-        {editEnabled && (
-          <Menu.Item as='div'>
-            <StanddardIconButton primaryColor='gray' onClick={startEditing}>
-              <PencilIcon />
-            </StanddardIconButton>
-          </Menu.Item>
-        )}
+        <Menu.Item as="div">
+          <StanddardIconButton
+            disabled={!deleteEnabled}
+            primaryColor="red"
+            onClick={openConfirmModal}
+          >
+            <TrashIcon />
+          </StanddardIconButton>
+        </Menu.Item>
+        <Menu.Item as="div">
+          <StanddardIconButton
+            disabled={!editEnabled}
+            primaryColor="gray"
+            onClick={startEditing}
+          >
+            <PencilIcon />
+          </StanddardIconButton>
+        </Menu.Item>
         {markEnabled && (
-          <Menu.Item as='div'>
+          <Menu.Item as="div">
             <StanddardIconButton
-              primaryColor='green'
+              primaryColor="green"
               onClick={onMark}
               active={marked}
               activeChildren={
-                <CheckCircleIconFilled className='text-green-600 dark:text-green-400' />
+                <CheckCircleIconFilled className="text-green-600 dark:text-green-400" />
               }
             >
               <CheckCircleIcon />

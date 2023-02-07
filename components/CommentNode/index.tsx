@@ -26,13 +26,14 @@ const CommentNode = ({ id, comment }: Props) => {
           id={id}
           comment={comment}
           onReply={() => setIsReplying((isReplying) => !isReplying)}
+          hasChild={child.length > 0}
         />
-        <div className='relative flex'>
-          <div className='ml-8'>
+        <div className="relative flex">
+          <div className="ml-8">
             {isReplying && (
               <CreateComment
-                className='pl-4 pt-2 block'
-                actionButtonText='Reply'
+                className="pl-4 pt-2 block"
+                actionButtonText="Reply"
                 setVisibility={(visibility) => setIsReplying(visibility)}
               />
             )}
@@ -41,8 +42,8 @@ const CommentNode = ({ id, comment }: Props) => {
                 <CommentNode key={value[0]} id={value[0]} comment={value[1]} />
               ))}
           </div>
-          <div className='w-8 flex justify-center absolute left-0 top-0 bottom-0'>
-            <div className='w-0.5 bg-neutral-300 dark:bg-neutral-600' />
+          <div className="w-8 flex justify-center absolute left-0 top-0 bottom-0">
+            <div className="w-0.5 bg-neutral-300 dark:bg-neutral-600" />
           </div>
         </div>
         <ConfirmDeleteCommentModal />

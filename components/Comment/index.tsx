@@ -14,9 +14,10 @@ type Props = {
   comment: DComment;
   id: string;
   onReply?: () => any;
+  hasChild?: boolean;
 };
 
-function Comment({ id, comment, onReply }: Props) {
+function Comment({ id, comment, onReply, hasChild }: Props) {
   const question = useContext(QuestionContext);
   const { data: session } = useSession();
   const isSolution = question?.solvedCommentId === id;
@@ -25,17 +26,17 @@ function Comment({ id, comment, onReply }: Props) {
 
   return (
     <CommentContext.Provider value={{ id: id, ...comment }}>
-      <div className='mt-2 flex items-center text-sm space-x-2 text-neutral-500 dark:text-neutral-400'>
-        <div className='relative rounded-full w-8 h-8 overflow-hidden mr-4'>
+      <div className="mt-2 flex items-center text-sm space-x-2 text-neutral-500 dark:text-neutral-400">
+        <div className="relative rounded-full w-8 h-8 overflow-hidden mr-4">
           <Image
-            className='rounded-full object-cover'
+            className="rounded-full object-cover"
             src={comment.authorImg}
-            sizes='w-8 h-8'
+            sizes="w-8 h-8"
             alt={comment.authorName}
             fill
           />
         </div>
-        <p className='font-medium text-sm text-neutral-700 dark:text-neutral-200'>
+        <p className="font-medium text-sm text-neutral-700 dark:text-neutral-200">
           {comment.authorName}
         </p>
         {comment.createdDate && (
@@ -43,13 +44,13 @@ function Comment({ id, comment, onReply }: Props) {
         )}
         {comment.editedDate && <p>[edited]</p>}
         {isSolution && (
-          <p className='text-sm ml-4 text-green-600 dark:text-green-400'>
+          <p className="text-sm ml-4 text-green-600 dark:text-green-400">
             (SOLUTION)
           </p>
         )}
       </div>
-      <div className='relative max-w-full'>
-        <div className='ml-12 flex flex-col'>
+      <div className="relative max-w-full">
+        <div className="ml-12 flex flex-col">
           <UpdateCommentProvider>
             <UpdateCommentWrapper>
               <CommentDetail
@@ -59,11 +60,12 @@ function Comment({ id, comment, onReply }: Props) {
                 isPostAuthor={isPostAuthor}
                 isCommentAuthor={isCommentAuthor}
                 onComment={onReply}
+                hasChild={hasChild}
               />
             </UpdateCommentWrapper>
           </UpdateCommentProvider>
         </div>
-        <div className='w-8 flex justify-center absolute left-0 top-0 bottom-0'>
+        <div className="w-8 flex justify-center absolute left-0 top-0 bottom-0">
           <div
             className={`w-0.5 ${
               isSolution

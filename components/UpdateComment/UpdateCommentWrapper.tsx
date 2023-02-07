@@ -3,7 +3,6 @@ import { UpdateCommentContext } from './updateCommentContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import CreateCommentView from '../CreateComment/CreateCommentView';
 import useUpdateComment from './useUpdateComment';
-import { CommentContext } from '../Comment';
 
 type Props = {
   children: ReactNode;
@@ -27,7 +26,7 @@ const UpdateCommentWrapper = ({ children: child }: Props) => {
   }, [html, action]);
 
   return (
-    <AnimatePresence mode='wait'>
+    <AnimatePresence mode="wait">
       <motion.div
         key={String(state?.editing)}
         initial={{ opacity: 0, y: -10 }}
@@ -45,8 +44,8 @@ const UpdateCommentWrapper = ({ children: child }: Props) => {
             setComment={setHtml}
             onCancle={onCancle}
             onDone={updateCommnet}
-            actionButtonText='Update'
-            cancleButtonText='Cancle'
+            actionButtonText="Update"
+            cancleButtonText="Cancle"
           />
         ) : (
           <>{child}</>
