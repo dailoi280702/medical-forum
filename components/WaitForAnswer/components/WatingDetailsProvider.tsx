@@ -30,14 +30,14 @@ const WaitingDetailsProvider = ({ children }: Props) => {
     onSnapshot(
       query(
         collection(db, CollectionEnum.QUESTIONS),
-        where('waitingUsers', 'array-contains', session.user.uid),
-        where('solvedCommentId', '==', null)
+        where('waitingUsers', 'array-contains', session.user.uid)
+        // where('solvedCommentId', '==', null)
       ),
       (snapshot) => {
         setWaitingPosts(
           new Map(
             snapshot.docs
-              .filter((doc) => doc.data())
+              .filter((doc) => doc.data() && !doc.data().solvedCommentId)
               .reverse()
               .map((doc) => [doc.id, { ...(doc.data() as WaitingDetail) }])
           )
