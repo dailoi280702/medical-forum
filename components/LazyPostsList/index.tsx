@@ -50,7 +50,13 @@ const LazyPostsList = ({ posts, fetchPosts }: Props) => {
     const getData = async () => {
       const PAGEPERLOAD = 5;
       const numberOfPost = await getCountFromServer(collection(db, 'question'));
-      if (numberOfPost.data().count <= PAGEPERLOAD * (page - 1)) return;
+      if (
+        numberOfPost.data().count <= PAGEPERLOAD * (page - 1) ||
+        numberOfPost.data().count == 0
+      ) {
+        setLoading(false);
+        return;
+      }
 
       fetchPosts(page * PAGEPERLOAD);
       setLoading(false);

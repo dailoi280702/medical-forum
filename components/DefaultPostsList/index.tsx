@@ -39,10 +39,18 @@ const DefaultPostsList = ({ posts, loading, listRef }: Props) => {
             </PostWrapper>
           ))}
       </ul>
-      {loading && (
-        <div className="w-full text-center text-neutral-300 dark:text-neutral-700 mt-8">
+      {loading ? (
+        <div className="w-full text-center text-neutral-300 dark:text-neutral-700 my-8">
           loading ... please wait
         </div>
+      ) : (
+        <>
+          {posts.size === 0 && (
+            <div className="w-full text-center text-neutral-300 dark:text-neutral-700 my-8">
+              nothing to display
+            </div>
+          )}
+        </>
       )}
     </>
   );
