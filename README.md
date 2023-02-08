@@ -52,11 +52,11 @@ yarn dev
 
 - [x] create header
 - [x] add toggle light/dark theme button
-- [ ] authentication
-- [ ] create post
-- [ ] display posts
-- [ ] add comment
-- [ ] display comments
-- [ ] save posts
-- [ ] mark a comment as answer (author only)
-- [ ] ...
+- [x] authentication
+- [x] create post
+- [x] display posts
+- [x] add comment
+- [x] display comments
+- [x] save posts
+- [x] mark a comment as answer (author only)
+- [x] ...
